@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_documentation element="unfreeze_pin" label="Unfreeze Pin" language="en" table="x_233073_absolute_computer_freeze_log">
+        <sys_documentation action="INSERT_OR_UPDATE">
+            <element>unfreeze_pin</element>
+            <help/>
+            <hint/>
+            <label>Unfreeze Pin</label>
+            <language>en</language>
+            <name>x_233073_absolute_computer_freeze_log</name>
+            <plural>Unfreeze Pins</plural>
+            <sys_class_name>sys_documentation</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-06-13 21:54:11</sys_created_on>
+            <sys_id>6e219c7fdb6e1300d6fc9444ca96198a</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>Unfreeze Pin</sys_name>
+            <sys_package display_value="Absolute Software Connector" source="x_233073_absolute">5a575fafdbea1300d6fc9444ca96195c</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Absolute Software Connector">5a575fafdbea1300d6fc9444ca96195c</sys_scope>
+            <sys_update_name>sys_documentation_x_233073_absolute_computer_freeze_log_unfreeze_pin_en</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-06-13 21:54:11</sys_updated_on>
+            <url/>
+            <url_target/>
+        </sys_documentation>
+    </sys_documentation>
+</record_update>

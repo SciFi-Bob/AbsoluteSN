@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_embedded_help_role">
+    <sys_embedded_help_role action="INSERT_OR_UPDATE">
+        <order>1000</order>
+        <role display_value="x_233073_absolute.absolute_link_data_user" name="x_233073_absolute.absolute_link_data_user">85cfc43fdb6e1300d6fc9444ca9619a3</role>
+        <sys_class_name>sys_embedded_help_role</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-06-13 21:48:04</sys_created_on>
+        <sys_id>85cfc43fdb6e1300d6fc9444ca9619a5</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>85cfc43fdb6e1300d6fc9444ca9619a3</sys_name>
+        <sys_package display_value="Absolute Software Connector" source="x_233073_absolute">5a575fafdbea1300d6fc9444ca96195c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Absolute Software Connector">5a575fafdbea1300d6fc9444ca96195c</sys_scope>
+        <sys_update_name>sys_embedded_help_role_85cfc43fdb6e1300d6fc9444ca9619a5</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-06-13 21:48:04</sys_updated_on>
+    </sys_embedded_help_role>
+</record_update>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_ui_page">
+    <sys_ui_page action="INSERT_OR_UPDATE">
+        <category>general</category>
+        <client_script><![CDATA[function processFreezeRequest() {
+	//This script is called when the user clicks "OK" in the dialog window
+	
+	gel('sysid').value = g_form.getUniqueValue();
+	var sysid = gel('sysid').value;
+	
+	var c = gel('cancel');
+	
+	//Make sure that there is a valid PIN
+	var upin = gel("upin").value;
+	if(upin == "" | upin.length < 4 | upin.length > 8 | /\D/.test(upin)) {
+		alert("Please enter a numeric pin between 4 and 8 numbers for local unlock");
+		c.value = "true";
+		return;
+	}
+	
+	var fmessage = gel("fmessage").value;
+	if (fmessage == " ") {
+		//If comments are empty, alert the user and stop submission
+		alert("Please specify a short message to disply to the user.");
+		c.value = "true";
+		return;
+	}
+	
+	//If we get here we are going to execute
+	c.value = "false";
+	
+	console.log("PIN was: " + upin);
+	console.log("Message was: " + fmessage);
+	
+	var ga = new GlideAjax('AbsoluteFreezeClientCall'); //Call script include to escape text
+	ga.addParam('sysparm_name', 'gofreeze');
+	ga.addParam('sysid', sysid);
+	ga.addParam('pin', upin);
+	ga.addParam('message', fmessage);
+	ga.getXML(myCallBack);
+	
+}
+
+function myCallBack(response) { //the argument 'response' is automatically provided when the callback funciton is called by the system.
+	gsftSubmit(gel('sysverb_update_and_stay'));
+	GlideDialogWindow.get().destroy();
+	return true;
+}]]></client_script>
+        <description/>
+        <direct>false</direct>
+        <endpoint>x_233073_absolute_AbsoluteFreezeDialog.do</endpoint>
+        <html><![CDATA[<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+<g:ui_form>
+	
+	<input  id="sysid" name="sysid" value="$[RP.getWindowProperties().sysid]"/>
+	<input  id="cancel" name="cancel" value="true" />
+	
+	<g:ui_input_field name="upin" id="upin" label="Unfreeze Pin" mandatory="true"/>
+    <g:ui_input_field name="fmessage" id="fmessage" label="Freeze Message" mandatory="true" />
+	<g:dialog_buttons_ok_cancel ok="return processFreezeRequest();" ok_type="button" cancel_type="button" />
+	
+</g:ui_form>
+	
+</j:jelly>]]></html>
+        <name>AbsoluteFreezeDialog</name>
+        <processing_script/>
+        <sys_class_name>sys_ui_page</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-06-13 22:59:32</sys_created_on>
+        <sys_id>d5ef1cb7dbae1300d6fc9444ca9619c6</sys_id>
+        <sys_mod_count>1</sys_mod_count>
+        <sys_name>AbsoluteFreezeDialog</sys_name>
+        <sys_package display_value="Absolute Software Connector" source="x_233073_absolute">5a575fafdbea1300d6fc9444ca96195c</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Absolute Software Connector">5a575fafdbea1300d6fc9444ca96195c</sys_scope>
+        <sys_update_name>sys_ui_page_d5ef1cb7dbae1300d6fc9444ca9619c6</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-06-13 23:03:39</sys_updated_on>
+    </sys_ui_page>
+</record_update>

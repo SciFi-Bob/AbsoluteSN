@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_233073_absolute.AbsoluteData</api_name>
+        <client_callable>false</client_callable>
+        <description>Holds functions for interacting with the application data</description>
+        <name>AbsoluteData</name>
+        <script><![CDATA[var AbsoluteData = Class.create();
+AbsoluteData.prototype = {
+	initialize: function() {
+	},
+	//Adds a log entry to the Freeze log
+	addFreezeLog : function (parentsysid, uid, pin, message){
+		var rec = new GlideRecord('x_233073_absolute_computer_freeze_log');
+		if(typeof pin != "undefined" & typeof message != "undefined"){
+			//There is a pin and a message so we are creating a Freeze Message
+			rec.initialize();
+			rec.action = "Freeze Requested";
+			rec.unfreeze_pin = pin;
+			rec.absolute_uid = uid;
+			rec.parentsysid = parentsysid;
+			rec.message = message;
+			rec.insert();
+		}
+		else{
+			//The PIN and message are missing so we are going to create an Unfreeze
+			rec.initialize();
+			rec.action = "UnFreeze Requested";
+			rec.absolute_uid = uid;
+			rec.parentsysid = parentsysid;
+			rec.insert();
+			
+		}
+		
+		
+	},
+	//Updates the freeze state in the linking table
+	updateFreezeState : function (sysid, state){
+		var linkTable = new GlideRecord('x_233073_absolute_absolute_link_data');
+		if(linkTable.get('sysid', sysid)){
+			linkTable.freezestate = state;
+			linkTable.update();
+		}
+	},
+	
+	
+	
+	
+	type: 'AbsoluteData'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-06-13 20:49:37</sys_created_on>
+        <sys_id>9842c877db6e1300d6fc9444ca9619a2</sys_id>
+        <sys_mod_count>3</sys_mod_count>
+        <sys_name>AbsoluteData</sys_name>
+        <sys_package display_value="Absolute Software Connector" source="x_233073_absolute">5a575fafdbea1300d6fc9444ca96195c</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Absolute Software Connector">5a575fafdbea1300d6fc9444ca96195c</sys_scope>
+        <sys_update_name>sys_script_include_9842c877db6e1300d6fc9444ca9619a2</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-06-13 21:54:27</sys_updated_on>
+    </sys_script_include>
+</record_update>

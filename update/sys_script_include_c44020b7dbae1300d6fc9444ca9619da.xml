@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_233073_absolute.AbsoluteFreezeClientCall</api_name>
+        <client_callable>true</client_callable>
+        <description/>
+        <name>AbsoluteFreezeClientCall</name>
+        <script><![CDATA[var AbsoluteFreezeClientCall = Class.create();
+AbsoluteFreezeClientCall.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
+	gofreeze : function(){
+		
+		var sysid = this.getParameter('sysid');
+		var pin = this.getParameter('pin');
+		var message = this.getParameter('message');
+		
+		try{
+			var apiSecret = "4279d3cf-6853-4fee-813b-a4f2d699d32e";
+			var apiToken = "4e2d1917-ea93-4c24-8b76-d8cc1ea8145d";
+			
+			var abtApi = new AbsoluteAPI(apiToken, apiSecret);
+			abtApi.freezeDevice(sysid, pin, message);
+			return"ok";
+		}
+		catch(ex){
+			return ex;
+		}
+		
+	},
+	type: 'AbsoluteFreezeClientCall'
+});]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-06-13 23:01:01</sys_created_on>
+        <sys_id>c44020b7dbae1300d6fc9444ca9619da</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>AbsoluteFreezeClientCall</sys_name>
+        <sys_package display_value="Absolute Software Connector" source="x_233073_absolute">5a575fafdbea1300d6fc9444ca96195c</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Absolute Software Connector">5a575fafdbea1300d6fc9444ca96195c</sys_scope>
+        <sys_update_name>sys_script_include_c44020b7dbae1300d6fc9444ca9619da</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-06-13 23:04:19</sys_updated_on>
+    </sys_script_include>
+</record_update>

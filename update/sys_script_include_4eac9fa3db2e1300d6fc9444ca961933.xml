@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_233073_absolute.AbsoluteAPI</api_name>
+        <client_callable>false</client_callable>
+        <description>Main API Access Code</description>
+        <name>AbsoluteAPI</name>
+        <script><![CDATA[var AbsoluteAPI = Class.create();
+AbsoluteAPI.prototype = {
+	initialize: function(apiToken, apiSecret) {
+		this.apiToken = apiToken;
+		this.apiSecret = apiSecret;
+	},
+	freezeDevice : function(sysid, pin, message){
+		//Creates and Sends the freeze request and notifies the user of what's going on  Also responsible for logging the event
+		try {
+			var id = this.fetchAbsoluteUid(sysid);
+			//Check to make sure that we got an ID back
+			if(id != "" && id != "error"){
+				var body = this._buildFreezePostBody(id, pin, message);
+				var abtDT = this._getAbtDateTime();
+				var bodyString = global.JSON.stringify(body);
+				var authH = this._generateAuthHeader(this.apiToken, this.apiSecret, abtDT, "POST", "/v2/device-freeze/requests", "", bodyString);
+				
+				//Rest Request
+				var r = new sn_ws.RESTMessageV2('x_233073_absolute.AbsoluteAPI', 'FreezeDeviceByID');
+				r.setStringParameterNoEscape('body', bodyString);
+				r.setStringParameterNoEscape('abtDateTime', abtDT);
+				r.setStringParameterNoEscape('abtAuthHeader', authH);
+				
+				var response = r.execute();
+				var responseBody = response.getBody();
+				var httpStatus = response.getStatusCode();
+				
+				if(httpStatus == "201"){
+					//Api call worked ok so tell the user, update the freeze status and add a log event
+					var abtData = new AbsoluteData();
+					abtData.addFreezeLog(sysid, id, pin, message);
+					abtData.updateFreezeState(sysid, true);
+					gs.addInfoMessage("Freeze request sent successfully");
+					return;
+				}
+				else if(httpStatus == "400"){
+					var jResponse = global.JSON.parse(responseBody);
+					if(jResponse.errors[0]){
+						gs.addErrorMessage("Freeze failed: " + jResponse.errors[0].message);
+						return;
+					}
+					else{
+						gs.addErrorMessage("Freeze failed: Unknown Error");
+						return;
+					}
+				}
+				else if(httpStatus == "401"){
+					gs.addErrorMessage("Freeze failed: API Authentication failed");
+					return;
+				}
+			}
+		}
+		catch(ex){
+			return ex;
+		}
+	},
+	
+	unFreezeDevice : function(sysid){
+		//Creates and sends the Unfreeze request, updates state and logs and also tells the user what's going on
+		try {
+			var id = this._fetchAbsoluteUid(sysid);
+			//Check to make sure we got an ID back
+			if(id != "" && id != "error"){
+				var body = this._buildUnFreezePostBody(id);
+				var abtDT = this._getAbtDateTime();
+				var bodyString = global.JSON.stringify(body);
+				var authH = this._generateAuthHeader(this.apiToken, this.apiSecret, abtDT, "PUT", "/v2/device-freeze/requests", "", bodyString);
+				
+				//Rest Request
+				var r = new sn_ws.RESTMessageV2('x_233073_absolute.AbsoluteAPI', 'UnFreezeDeviceByID');
+				r.setStringParameterNoEscape('body', bodyString);
+				r.setStringParameterNoEscape('abtDateTime', abtDT);
+				r.setStringParameterNoEscape('abtAuthHeader', authH);
+				
+				var response = r.execute();
+				var responseBody = response.getBody();
+				var httpStatus = response.getStatusCode();
+				
+				if(httpStatus == "204"){
+					//Api call worked ok so tell the user, update the freeze status and add a log event
+					addFreezeLog(current.sys_id, id);
+					updateFreezeState(current.sys_id, false);
+					gs.addInfoMessage("UnFreeze request sent successfully");
+					return;
+				}
+				else if(httpStatus == "400"){
+					
+					var jResponse = global.JSON.parse(responseBody);
+					if(jResponse.errors[0]){
+						gs.addErrorMessage("UnFreeze failed: " + jResponse.errors[0].message);
+						return;
+					}
+					else{
+						gs.addErrorMessage("UnFreeze failed: Unknown Error");
+						return;
+					}
+				}
+				else if(httpStatus == "401"){
+					gs.addErrorMessage("UnFreeze failed: API Authentication failed");
+					return;
+				}
+			}
+		}
+		catch(ex) {
+			return ex;
+		}
+	},
+	
+	fetchAbsoluteUid : function (sysid){
+		//Looks in the linking table for an existing Uid <> sys_id connection.  Returns the Uid if there, fetches and stores it if not.
+		var linkTable = new GlideRecord('x_233073_absolute_absolute_link_data');
+		
+		if(linkTable.get('sysid', sysid)){
+			//If we can find the sysID of the computer record in the cache then just return the Uid from there
+			return String(linkTable.uid);
+		}
+		else{
+			//We did not find it so fetch the serial number from the cmdb_ci_computer table
+			var computers = new GlideRecord('cmdb_ci_computer');
+			computers.get(sysid);
+			var sn = computers.serial_number;
+			
+			//Then use that serial Number to go and get the Uid and ESN from Absolute servers
+			try {
+				
+				var query = "$filter=agentStatus eq 'A' and serial eq '"+ sn +"'&$select=esn";
+				var abtDT = this._getAbtDateTime();
+				var authH = this._generateAuthHeader(this.apiToken, this.apiSecret, abtDT, "GET", "/v2/reporting/devices", query, "");
+				
+				var r = new sn_ws.RESTMessageV2('x_233073_absolute.AbsoluteAPI', 'LookupDeviceIDWithSN');
+				r.setStringParameterNoEscape('abtDateTime', abtDT);
+				r.setStringParameterNoEscape('abtAuthHeader', authH);
+				r.setStringParameterNoEscape('serial', sn);
+				
+				var response = r.execute();
+				var httpStatus = response.getStatusCode();
+				var sResponse = response.getBody(); //get response as string
+				
+				
+				if(httpStatus == "200"){
+					//We got a good response from the API
+					if(sResponse == "[]"){
+						//The response was blank so we did not find the Serial Number
+						gs.addErrorMessage("This computer is either not registered with Absolute or the agent is not enabled!");
+						return ""; //Need an error Message here
+					}
+					else{
+						//We got a valid response
+						var jResponse = global.JSON.parse(sResponse); //Convert response to Json Object
+						var id = jResponse[0].id;
+						var esn = jResponse[0].esn;
+						
+						//Add the data to link table for future use
+						linkTable.initialize();
+						linkTable.sysid = sysid;
+						linkTable.uid = id;
+						linkTable.esn = esn;
+						linkTable.insert();
+						
+						//Return the ID as rquested
+						return id;
+					}
+				}
+				else if(httpStatus == "400"){
+					var jResponse = global.JSON.parse(sResponse); //Convert response to Json Object
+					if(jResponse.errors[0]){
+						gs.addErrorMessage("Freeze failed: " + jResponse.errors[0].message);
+						return "";
+					}
+					else{
+						gs.addErrorMessage("ID Lookup Failed: Unknown Error");
+						return "";
+					}
+				}
+				else if(httpStatus == "401"){
+					gs.addErrorMessage("ID Lookup Failed: API Authentication failed");
+					return "";
+				}
+				else{
+					gs.addErrorMessage("ID Lookup Failed: Unknown Error");
+					return "";
+				}
+			}
+			catch(ex) {
+				var temp = ex;
+				return "error";
+			}
+		}
+	},
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	//Generates the Complete Auth Header
+	_generateAuthHeader: function (apiToken, apiSecret, abtDT, method, uri, query, body){
+		var abtDate = this._getDate();
+		var abtDateTime = abtDT;
+		var request = this._generateConconicalRequest(method, uri, query, "api.absolute.com", abtDateTime, body);
+		var requestHash = CryptoJS.enc.Hex.stringify(CryptoJS.SHA256(request));
+		var stringToSign = "ABS1-HMAC-SHA-256" + "\n" + abtDateTime + "\n" + abtDate + "/cadc/abs1" + "\n" + requestHash;
+		var signingKey = this._generateSigningKey(apiSecret, abtDate);
+		var signature = CryptoJS.HmacSHA256(stringToSign,signingKey).toString(CryptoJS.enc.Hex);
+		var header = "ABS1-HMAC-SHA-256 Credential=" + apiToken + "/" + abtDate + "/cadc/abs1, SignedHeaders=host;content-type;x-abs-date, Signature=" + signature;
+		
+		return header;
+	},
+	
+	//Gets the Date in the correct format
+	_getDate : function (){
+		var currentDate = new Date();
+		var year = currentDate.getUTCFullYear().toString();
+		var month = ('0' + (currentDate.getUTCMonth()+1)).slice(-2);
+		var day = ('0' + currentDate.getUTCDate()).slice(-2);
+		return year + month + day;
+	},
+	
+	//Get the Time in the Corerct Format
+	_getTime : function (){
+		var currentDate = new Date();
+		//var hours = currentDate.getUTCHours().toString();
+		var hours = ('0' + currentDate.getUTCHours()).slice(-2);
+		var minutes = ('0' + (currentDate.getUTCMinutes()-1)).slice(-2);
+		var seconds = ('0' + currentDate.getUTCSeconds()).slice(-2);
+		return hours + minutes + seconds;
+	},
+	
+	//Get the date and time in the correct format for api requests
+	_getAbtDateTime : function (){
+		return this._getDate() + "T" + this._getTime() + "Z";
+	},
+	
+	//Create a conconical request string and sign it
+	_generateConconicalRequest : function (method, resourse, query, host, abtDateTimeString, body){
+		var request = [];
+		request.push(
+		method.toUpperCase(), "\n",
+		resourse, "\n" ,
+		this._urlEncode(query.replace("?", "")), "\n",
+		"host:" , host , "\n" ,
+		"content-type:application/json", "\n",
+		"x-abs-date:" , abtDateTimeString, "\n",
+		CryptoJS.SHA256(body)
+		);
+		return request.join("");
+	},
+	
+	//Create the signing key
+	_generateSigningKey : function (secretKey, abtDate){
+		var ksecret = CryptoJS.enc.Utf8.parse("ABS1"+secretKey);
+		var kDate = CryptoJS.HmacSHA256(abtDate, ksecret);
+		var signingKey = CryptoJS.HmacSHA256("abs1_request", kDate);
+		return signingKey;
+	},
+	
+	//Builds the required body object for a freeze request
+	_buildFreezePostBody : function (deviceID, unlockPin, message){
+		var bodyStruct = "{\"name\": \"Device Freeze Name\",\"message\": \"<body>Your device is frozen by Absolute</body>\",\"messageName\": \"ServiceNow Freeze\",\"freezeDefinition\": {\"deviceFreezeType\": \"OnDemand\"},\"deviceUids\": [\"\"],\"passcodeDefinition\": {\"option\": \"UserDefined\",		\"passcode\": \"12345678\"},\"notificationEmails\":[\"\"]}";
+			var body = global.JSON.parse(bodyStruct);
+			body.deviceUids[0] = deviceID;
+			body.notificationEmails[0] = "pwilliams@absolute.com";
+			body.passcodeDefinition.passcode = unlockPin;
+			body.message = message;
+			return body;
+		},
+		
+	//Builds the required body Object for unFreeze Request
+	_buildUnFreezePostBody : function (deviceID){
+		var bodyStruct = "{\"deviceUids\":[\"\"],\"unfreeze\":\"true\"}";
+		var body = global.JSON.parse(bodyStruct);
+		body.deviceUids[0] = deviceID;
+		return body;
+	},
+	
+	_urlEncode: function (value){
+
+		enc = value
+			.replace(/\$/g, "%24" )
+			.replace(/\ /g, "%20" )
+			.replace(/\'/g, "%27" )
+			.replace(/\(/g, "%28")
+			.replace(/\)/g, "%29")
+			.replace(/\,/g, "%2C" );
+
+		return enc;
+	},
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			type: 'AbsoluteAPI'
+		};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-06-13 18:23:12</sys_created_on>
+        <sys_id>4eac9fa3db2e1300d6fc9444ca961933</sys_id>
+        <sys_mod_count>9</sys_mod_count>
+        <sys_name>AbsoluteAPI</sys_name>
+        <sys_package display_value="Absolute Software Connector" source="x_233073_absolute">5a575fafdbea1300d6fc9444ca96195c</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Absolute Software Connector">5a575fafdbea1300d6fc9444ca96195c</sys_scope>
+        <sys_update_name>sys_script_include_4eac9fa3db2e1300d6fc9444ca961933</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-06-13 22:49:29</sys_updated_on>
+    </sys_script_include>
+</record_update>
