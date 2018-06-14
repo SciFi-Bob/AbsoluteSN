@@ -40,7 +40,7 @@ AbsoluteAPI.prototype = {
 					abtData.addFreezeLog(sysid, id, pin, message);
 					abtData.updateFreezeState(sysid, true);
 					gs.addInfoMessage("Freeze request sent successfully");
-					return;
+					return "ok";
 				}
 				else if(httpStatus == "400"){
 					var jResponse = global.JSON.parse(responseBody);
@@ -60,6 +60,7 @@ AbsoluteAPI.prototype = {
 			}
 		}
 		catch(ex){
+			var temp = ex;
 			return ex;
 		}
 	},
@@ -67,7 +68,7 @@ AbsoluteAPI.prototype = {
 	unFreezeDevice : function(sysid){
 		//Creates and sends the Unfreeze request, updates state and logs and also tells the user what's going on
 		try {
-			var id = this._fetchAbsoluteUid(sysid);
+			var id = this.fetchAbsoluteUid(sysid);
 			//Check to make sure we got an ID back
 			if(id != "" && id != "error"){
 				var body = this._buildUnFreezePostBody(id);
@@ -87,8 +88,9 @@ AbsoluteAPI.prototype = {
 				
 				if(httpStatus == "204"){
 					//Api call worked ok so tell the user, update the freeze status and add a log event
-					addFreezeLog(current.sys_id, id);
-					updateFreezeState(current.sys_id, false);
+					var abtData = new AbsoluteData();
+					abtData.addFreezeLog(sysid, id);
+					abtData.updateFreezeState(sysid, false);
 					gs.addInfoMessage("UnFreeze request sent successfully");
 					return;
 				}
@@ -111,6 +113,7 @@ AbsoluteAPI.prototype = {
 			}
 		}
 		catch(ex) {
+			var temp =ex;
 			return ex;
 		}
 	},
@@ -313,13 +316,13 @@ AbsoluteAPI.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-06-13 18:23:12</sys_created_on>
         <sys_id>4eac9fa3db2e1300d6fc9444ca961933</sys_id>
-        <sys_mod_count>9</sys_mod_count>
+        <sys_mod_count>14</sys_mod_count>
         <sys_name>AbsoluteAPI</sys_name>
         <sys_package display_value="Absolute Software Connector" source="x_233073_absolute">5a575fafdbea1300d6fc9444ca96195c</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="Absolute Software Connector">5a575fafdbea1300d6fc9444ca96195c</sys_scope>
         <sys_update_name>sys_script_include_4eac9fa3db2e1300d6fc9444ca961933</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-06-13 22:49:29</sys_updated_on>
+        <sys_updated_on>2018-06-14 10:51:45</sys_updated_on>
     </sys_script_include>
 </record_update>
