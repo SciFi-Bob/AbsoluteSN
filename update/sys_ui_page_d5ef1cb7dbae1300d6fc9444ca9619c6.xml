@@ -58,16 +58,35 @@ function myCallBack(response) { //the argument 'response' is automatically provi
         <direct>false</direct>
         <endpoint>x_233073_absolute_AbsoluteFreezeDialog.do</endpoint>
         <html><![CDATA[<j:jelly trim="false" xmlns:j="jelly:core" xmlns:g="glide" xmlns:j2="null" xmlns:g2="null">
+	<img src="absolute-logo-png.png" width="247" height="32"/>
+	
+	<style> 
+		table {border: solid black 0px;}
+		tr,td {padding: 5px;}
+	
+	</style>
+	
+
 <g:ui_form>
-	
-	<input  id="sysid" name="sysid" value="$[RP.getWindowProperties().sysid]"/>
-	<input  id="cancel" name="cancel" value="true" />
-	
-	<g:ui_input_field name="upin" id="upin" label="Unfreeze Pin" mandatory="true"/>
-    <g:ui_input_field name="fmessage" id="fmessage" label="Freeze Message" mandatory="true" />
-	<g:dialog_buttons_ok_cancel ok="return processFreezeRequest();" ok_type="button" cancel_type="button" />
-	
+	<table>
+		<tr>
+			<td><input type="hidden" id="sysid" name="sysid" value="$[RP.getWindowProperties().sysid]"/></td>
+			<td><input type="hidden" id="cancel" name="cancel" value="true" /></td>
+		</tr>
+		<tr>
+			
+			<td><g:ui_input_field name="upin" id="upin" label="Unfreeze Pin" size="8" mandatory="false"/></td>
+		</tr>
+		<tr>
+			
+			<td><g:ui_input_field name="fmessage" id="fmessage" label="Freeze Message" size="30"/></td>
+		</tr>
+		<tr>
+			<td colspan="1" align="right"><g:dialog_buttons_ok_cancel ok="return processFreezeRequest();" ok_type="button" cancel_type="button" /></td>
+		</tr>
+	</table>
 </g:ui_form>
+	
 	
 </j:jelly>]]></html>
         <name>AbsoluteFreezeDialog</name>
@@ -76,13 +95,13 @@ function myCallBack(response) { //the argument 'response' is automatically provi
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-06-13 22:59:32</sys_created_on>
         <sys_id>d5ef1cb7dbae1300d6fc9444ca9619c6</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>44</sys_mod_count>
         <sys_name>AbsoluteFreezeDialog</sys_name>
         <sys_package display_value="Absolute Software Connector" source="x_233073_absolute">5a575fafdbea1300d6fc9444ca96195c</sys_package>
         <sys_policy/>
         <sys_scope display_value="Absolute Software Connector">5a575fafdbea1300d6fc9444ca96195c</sys_scope>
         <sys_update_name>sys_ui_page_d5ef1cb7dbae1300d6fc9444ca9619c6</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-06-14 10:36:41</sys_updated_on>
+        <sys_updated_on>2018-06-14 12:19:10</sys_updated_on>
     </sys_ui_page>
 </record_update>
