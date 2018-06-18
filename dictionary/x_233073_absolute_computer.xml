@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element extends="cmdb_ci_computer" label="Computer" max_length="40" name="x_233073_absolute_computer" sizeclass="1" type="collection">
+        <element label="AbsoluteESN" max_length="40" name="absoluteesn" type="string"/>
+        <element label="AbsoluteUid" max_length="40" name="absoluteuid" type="string"/>
+        <element label="Absolute Last Update" max_length="40" name="absolute_last_update" type="glide_date_time"/>
+        <element label="Absolute Policy Group" max_length="40" name="absolute_policy_group" type="string"/>
+        <element label="Absolute Policy Group ID" max_length="40" name="absolute_policy_group_id" type="string"/>
+        <element label="Anti-Virus Definition" max_length="40" name="anti_virus_definition" type="string"/>
+        <element label="Anti-Virus Product" max_length="40" name="anti_virus_product" type="string"/>
+        <element label="Anti-Virus Version" max_length="40" name="anti_virus_version" type="string"/>
+        <element label="Average Use (In Minutes)" max_length="40" name="average_use_in_minutes" type="string"/>
+        <element label="BIOS Release Date" max_length="40" name="bios_release_date" type="glide_date"/>
+        <element label="BIOS Version" max_length="40" name="bios_version" type="string"/>
+        <element label="CTES Active" max_length="40" name="ctes_active" type="boolean"/>
+        <element label="Display Adapter" max_length="40" name="display_adapter" type="string"/>
+        <element label="Display Name" max_length="40" name="display_name" type="string"/>
+        <element label="Display Resolution" max_length="40" name="display_resolution" type="string"/>
+        <element label="Encryption Algorithm" max_length="40" name="encryption_algorithm" type="string"/>
+        <element label="Encryption Key Size" max_length="40" name="encryption_key_size" type="string"/>
+        <element label="Encryption Product" max_length="40" name="encryption_product" type="string"/>
+        <element label="Encryption Status" max_length="40" name="encryption_status" type="string"/>
+        <element label="Encryption Status Message" max_length="40" name="encryption_status_message" type="string"/>
+        <element label="Encryption Version" max_length="40" name="encryption_version" type="string"/>
+        <element label="FreezeRequested" max_length="40" name="freezerequested" type="boolean"/>
+        <element default="Not Frozen" label="Freeze Status" max_length="40" name="freeze_status" type="string"/>
+        <element label="Marked As Stolen" max_length="40" name="marked_as_stolen" type="boolean"/>
+        <element label="OS Install Date" max_length="40" name="os_install_date" type="glide_date"/>
+        <element label="OS Last Boot Time" max_length="40" name="os_last_boot_time" type="glide_date_time"/>
+        <element label="OS Product Key" max_length="40" name="os_product_key" type="string"/>
+        <element label="Use Classification" max_length="40" name="use_classification" type="string"/>
+    </element>
+</database>

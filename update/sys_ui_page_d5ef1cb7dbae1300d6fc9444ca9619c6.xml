@@ -5,10 +5,8 @@
         <client_script><![CDATA[function processFreezeRequest() {
 	//This script is called when the user clicks "OK" in the dialog window
 	
-	gel('sysid').value = g_form.getUniqueValue();
-	var sysid = gel('sysid').value;
-	
-	var c = gel('cancel');
+	var sysid = g_form.getUniqueValue();
+	var useremail = gel('useremail').value;
 	
 	//Make sure that there is a valid PIN
 	var upin = gel("upin").value;
@@ -27,17 +25,18 @@
 	}
 	
 	//If we get here we are going to execute
-	c.value = "false";
-	
-	console.log("PIN was: " + upin);
-	console.log("Message was: " + fmessage);
 	
 	var ga = new GlideAjax('AbsoluteFreezeClientCall'); //Call script include to escape text
 	ga.addParam('sysparm_name', 'gofreeze');
 	ga.addParam('sysid', sysid);
 	ga.addParam('pin', upin);
 	ga.addParam('message', fmessage);
-	ga.getXML(myCallBack);
+	ga.addParam('email', useremail)
+	ga.getXMLAnswer(myCallBack);
+	
+	console.log("A freeze Request for SYSid: " + sysid + " Would be sent using the PIN: " + upin + " and the message: " + fmessage + ". Conformation would be sent to: " + useremail);
+	
+	
 	
 }
 
@@ -48,6 +47,8 @@ function myCallBack(response) { //the argument 'response' is automatically provi
 		return true;
 	}
 	else{
+		alert("Something Went Wrong");
+		console.log("Error - " + response);
 		GlideDialogWindow.get().destroy();
 		return false;
 	}
@@ -70,8 +71,7 @@ function myCallBack(response) { //the argument 'response' is automatically provi
 <g:ui_form>
 	<table>
 		<tr>
-			<td><input type="hidden" id="sysid" name="sysid" value="$[RP.getWindowProperties().sysid]"/></td>
-			<td><input type="hidden" id="cancel" name="cancel" value="true" /></td>
+			<td><input type="hidden" id="useremail" name="useremail" value="$[gs.getUser().getEmail()]"/></td>
 		</tr>
 		<tr>
 			
@@ -81,6 +81,7 @@ function myCallBack(response) { //the argument 'response' is automatically provi
 			
 			<td><g:ui_input_field name="fmessage" id="fmessage" label="Freeze Message" size="30"/></td>
 		</tr>
+		
 		<tr>
 			<td colspan="1" align="right"><g:dialog_buttons_ok_cancel ok="return processFreezeRequest();" ok_type="button" cancel_type="button" /></td>
 		</tr>
@@ -95,13 +96,13 @@ function myCallBack(response) { //the argument 'response' is automatically provi
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-06-13 22:59:32</sys_created_on>
         <sys_id>d5ef1cb7dbae1300d6fc9444ca9619c6</sys_id>
-        <sys_mod_count>44</sys_mod_count>
+        <sys_mod_count>60</sys_mod_count>
         <sys_name>AbsoluteFreezeDialog</sys_name>
         <sys_package display_value="Absolute Software Connector" source="x_233073_absolute">5a575fafdbea1300d6fc9444ca96195c</sys_package>
         <sys_policy/>
         <sys_scope display_value="Absolute Software Connector">5a575fafdbea1300d6fc9444ca96195c</sys_scope>
         <sys_update_name>sys_ui_page_d5ef1cb7dbae1300d6fc9444ca9619c6</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-06-14 12:19:10</sys_updated_on>
+        <sys_updated_on>2018-06-16 23:36:25</sys_updated_on>
     </sys_ui_page>
 </record_update>

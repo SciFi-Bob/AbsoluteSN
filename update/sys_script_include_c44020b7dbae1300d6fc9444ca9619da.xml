@@ -11,19 +11,28 @@
 AbsoluteFreezeClientCall.prototype = Object.extendsObject(global.AbstractAjaxProcessor, {
 	gofreeze : function(){
 		
+		
+		
 		var sysid = this.getParameter('sysid');
 		var pin = this.getParameter('pin');
 		var message = this.getParameter('message');
+		var email = this.getParameter('email');
+		
+		//gs.info("Freeze request useing sysid: " + sysid + "   pin: " + pin + "    message: " + message);
 		
 		try{
-			var apiSecret = "4279d3cf-6853-4fee-813b-a4f2d699d32e";
-			var apiToken = "4e2d1917-ea93-4c24-8b76-d8cc1ea8145d";
+			var apiSecret = gs.getProperty('x_233073_absolute.Absolute_API_Secret');
+			var apiToken = gs.getProperty('x_233073_absolute.Absolute_API_Token');
+			
+			//gs.info("API Token: " + apiToken +  "     APISecret: " +apiSecret);
 			
 			var abtApi = new AbsoluteAPI(apiToken, apiSecret);
-			var result = abtApi.freezeDevice(sysid, pin, message);
+			var result = abtApi.freezeDevice(sysid, pin, message, email);
+			//gs.info("Freeze Did not crash, response= " + result);
 			return result;
 		}
 		catch(ex){
+			gs.info("Freeze Crashed! error: " + ex);
 			return ex;
 		}
 		
@@ -34,13 +43,13 @@ AbsoluteFreezeClientCall.prototype = Object.extendsObject(global.AbstractAjaxPro
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-06-13 23:01:01</sys_created_on>
         <sys_id>c44020b7dbae1300d6fc9444ca9619da</sys_id>
-        <sys_mod_count>3</sys_mod_count>
+        <sys_mod_count>10</sys_mod_count>
         <sys_name>AbsoluteFreezeClientCall</sys_name>
         <sys_package display_value="Absolute Software Connector" source="x_233073_absolute">5a575fafdbea1300d6fc9444ca96195c</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="Absolute Software Connector">5a575fafdbea1300d6fc9444ca96195c</sys_scope>
         <sys_update_name>sys_script_include_c44020b7dbae1300d6fc9444ca9619da</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-06-14 10:32:47</sys_updated_on>
+        <sys_updated_on>2018-06-16 23:29:17</sys_updated_on>
     </sys_script_include>
 </record_update>

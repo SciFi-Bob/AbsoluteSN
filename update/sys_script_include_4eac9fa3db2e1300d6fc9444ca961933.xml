@@ -13,13 +13,13 @@ AbsoluteAPI.prototype = {
 		this.apiToken = apiToken;
 		this.apiSecret = apiSecret;
 	},
-	freezeDevice : function(sysid, pin, message){
+	freezeDevice : function(sysid, pin, message, email){
 		//Creates and Sends the freeze request and notifies the user of what's going on  Also responsible for logging the event
 		try {
 			var id = this.fetchAbsoluteUid(sysid);
 			//Check to make sure that we got an ID back
-			if(id != "" && id != "error"){
-				var body = this._buildFreezePostBody(id, pin, message);
+			if(id != "" && id != "error" && typeof id != 'undefined'){
+				var body = this._buildFreezePostBody(id, pin, message, email);
 				var abtDT = this._getAbtDateTime();
 				var bodyString = global.JSON.stringify(body);
 				var authH = this._generateAuthHeader(this.apiToken, this.apiSecret, abtDT, "POST", "/v2/device-freeze/requests", "", bodyString);
@@ -37,8 +37,8 @@ AbsoluteAPI.prototype = {
 				if(httpStatus == "201"){
 					//Api call worked ok so tell the user, update the freeze status and add a log event
 					var abtData = new AbsoluteData();
-					abtData.addFreezeLog(sysid, id, pin, message);
-					abtData.updateFreezeState(sysid, true);
+					abtData.addFreezeLog(sysid, id, email, pin, message);
+					abtData.updateFreezeRequested(sysid, true);
 					gs.addInfoMessage("Freeze request sent successfully");
 					return "ok";
 				}
@@ -65,12 +65,12 @@ AbsoluteAPI.prototype = {
 		}
 	},
 	
-	unFreezeDevice : function(sysid){
+	unFreezeDevice : function(sysid, email){
 		//Creates and sends the Unfreeze request, updates state and logs and also tells the user what's going on
 		try {
 			var id = this.fetchAbsoluteUid(sysid);
 			//Check to make sure we got an ID back
-			if(id != "" && id != "error"){
+			if(id != "" && id != "error" && typeof id != 'undefined'){
 				var body = this._buildUnFreezePostBody(id);
 				var abtDT = this._getAbtDateTime();
 				var bodyString = global.JSON.stringify(body);
@@ -89,8 +89,8 @@ AbsoluteAPI.prototype = {
 				if(httpStatus == "204"){
 					//Api call worked ok so tell the user, update the freeze status and add a log event
 					var abtData = new AbsoluteData();
-					abtData.addFreezeLog(sysid, id);
-					abtData.updateFreezeState(sysid, false);
+					abtData.addFreezeLog(sysid, id, email);
+					abtData.updateFreezeRequested(sysid, false);
 					gs.addInfoMessage("UnFreeze request sent successfully");
 					return;
 				}
@@ -119,17 +119,18 @@ AbsoluteAPI.prototype = {
 	},
 	
 	fetchAbsoluteUid : function (sysid){
-		//Looks in the linking table for an existing Uid <> sys_id connection.  Returns the Uid if there, fetches and stores it if not.
-		var linkTable = new GlideRecord('x_233073_absolute_absolute_link_data');
 		
-		if(linkTable.get('sysid', sysid)){
+		//Find the computer record
+		var computers = new GlideRecord('x_233073_absolute_computer');
+		computers.get(sysid);
+		
+		if(computers.absoluteuid != ""){ 
 			//If we can find the sysID of the computer record in the cache then just return the Uid from there
-			return String(linkTable.uid);
+			return String(computers.absoluteuid);
 		}
 		else{
 			//We did not find it so fetch the serial number from the cmdb_ci_computer table
-			var computers = new GlideRecord('cmdb_ci_computer');
-			computers.get(sysid);
+			//var computers = new GlideRecord('cmdb_ci_computer');
 			var sn = computers.serial_number;
 			
 			//Then use that serial Number to go and get the Uid and ESN from Absolute servers
@@ -161,16 +162,14 @@ AbsoluteAPI.prototype = {
 						var jResponse = global.JSON.parse(sResponse); //Convert response to Json Object
 						var id = jResponse[0].id;
 						var esn = jResponse[0].esn;
-						
-						//Add the data to link table for future use
-						linkTable.initialize();
-						linkTable.sysid = sysid;
-						linkTable.uid = id;
-						linkTable.esn = esn;
-						linkTable.insert();
+						//Update the Absolute ID fields on the form
+						computers.absoluteuid = id;
+						computers.absoluteesn = esn;
+						//action.setRedirectURL(current);
+						computers.update();
 						
 						//Return the ID as rquested
-						return id;
+						return String(id);
 					}
 				}
 				else if(httpStatus == "400"){
@@ -200,7 +199,55 @@ AbsoluteAPI.prototype = {
 		}
 	},
 	
-	
+		fetchAbsoluteSingleDeviceItem : function(sysid, searchItem){
+		//Creates and Sends the freeze request and notifies the user of what's going on  Also responsible for logging the event
+		try {
+			var id = this.fetchAbsoluteUid(sysid);
+			//Check to make sure that we got an ID back
+			if(id != "" && id != "error" && typeof id != 'undefined'){
+				
+				var query = "$filter=agentStatus eq 'A' and id eq '"+ id +"'&$select=" + searchItem;
+				var abtDT = this._getAbtDateTime();
+				var authH = this._generateAuthHeader(this.apiToken, this.apiSecret, abtDT, "GET", "/v2/reporting/devices", query, "");
+				
+				var r = new sn_ws.RESTMessageV2('x_233073_absolute.AbsoluteAPI', 'GetSingleDeviceItemWithID');
+				r.setStringParameterNoEscape('abtDateTime', abtDT);
+				r.setStringParameterNoEscape('abtAuthHeader', authH);
+				r.setStringParameterNoEscape('id', id);
+				r.setStringParameterNoEscape('searchValue', searchItem);
+				
+				
+				var response = r.execute();
+				var httpStatus = response.getStatusCode();
+				var sResponse = response.getBody(); //get response as string
+				
+				if(httpStatus == "200"){
+					//Api call worked 
+					var jResponse = global.JSON.parse(sResponse); //Convert response to Json Object
+					return jResponse[0];
+				}
+				else if(httpStatus == "400"){
+					var jResponse = global.JSON.parse(responseBody);
+					if(jResponse.errors[0]){
+						gs.addErrorMessage("Absolute: " + jResponse.errors[0].message);
+						return;
+					}
+					else{
+						gs.addErrorMessage("Absolute: Unknown Error");
+						return;
+					}
+				}
+				else if(httpStatus == "401"){
+					gs.addErrorMessage("Absolute: API Authentication failed");
+					return;
+				}
+			}
+		}
+		catch(ex){
+			var temp = ex;
+			return ex;
+		}
+	},
 	
 	
 	
@@ -270,11 +317,11 @@ AbsoluteAPI.prototype = {
 	},
 	
 	//Builds the required body object for a freeze request
-	_buildFreezePostBody : function (deviceID, unlockPin, message){
+	_buildFreezePostBody : function (deviceID, unlockPin, message, email){
 		var bodyStruct = "{\"name\": \"Device Freeze Name\",\"message\": \"<body>Your device is frozen by Absolute</body>\",\"messageName\": \"ServiceNow Freeze\",\"freezeDefinition\": {\"deviceFreezeType\": \"OnDemand\"},\"deviceUids\": [\"\"],\"passcodeDefinition\": {\"option\": \"UserDefined\",		\"passcode\": \"12345678\"},\"notificationEmails\":[\"\"]}";
 			var body = global.JSON.parse(bodyStruct);
 			body.deviceUids[0] = deviceID;
-			body.notificationEmails[0] = "pwilliams@absolute.com";
+			body.notificationEmails[0] = email;
 			body.passcodeDefinition.passcode = unlockPin;
 			body.message = message;
 			return body;
@@ -316,13 +363,13 @@ AbsoluteAPI.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-06-13 18:23:12</sys_created_on>
         <sys_id>4eac9fa3db2e1300d6fc9444ca961933</sys_id>
-        <sys_mod_count>14</sys_mod_count>
+        <sys_mod_count>34</sys_mod_count>
         <sys_name>AbsoluteAPI</sys_name>
         <sys_package display_value="Absolute Software Connector" source="x_233073_absolute">5a575fafdbea1300d6fc9444ca96195c</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="Absolute Software Connector">5a575fafdbea1300d6fc9444ca96195c</sys_scope>
         <sys_update_name>sys_script_include_4eac9fa3db2e1300d6fc9444ca961933</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-06-14 10:51:45</sys_updated_on>
+        <sys_updated_on>2018-06-16 23:33:09</sys_updated_on>
     </sys_script_include>
 </record_update>

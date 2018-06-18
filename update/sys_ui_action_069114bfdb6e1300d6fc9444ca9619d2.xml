@@ -5,7 +5,7 @@
         <active>true</active>
         <client>true</client>
         <comments/>
-        <condition>checkFrozenState(current.sys_id) == false</condition>
+        <condition>current.freezerequested == false</condition>
         <form_action>true</form_action>
         <form_button>true</form_button>
         <form_context_menu>false</form_context_menu>
@@ -24,16 +24,15 @@
         <onclick>freezeDialog()</onclick>
         <order>100</order>
         <script><![CDATA[function freezeDialog(){
-	var sysId = g_form.getUniqueValue(); //Get sys_id of parent doc
+	//var sysId = g_form.getUniqueValue(); //Get sys_id of parent doc
 	
 	//Create the Glide Dialog
 	var dialog = new GlideDialogWindow('x_233073_absolute_AbsoluteFreezeDialog');
 	dialog.setTitle(""); //Set the dialog title
-	dialog.setPreference("sysid", sysId); //Pass the sys_id to the form
-	
-	
+	//dialog.setPreference("sysid", sysId); //Pass the sys_id to the form
+	//dialog.setPreference("useremail" , gs.getUser().getEmail()); //Pass the current User eMail to the form
 	dialog.render(); //Open the dialog
-	action.setRedirectURL(current);
+	
 }]]></script>
         <show_insert>false</show_insert>
         <show_multiple_update>false</show_multiple_update>
@@ -45,7 +44,7 @@
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>069114bfdb6e1300d6fc9444ca9619d2</sys_id>
-        <sys_mod_count>6</sys_mod_count>
+        <sys_mod_count>10</sys_mod_count>
         <sys_name>Freeze Computer</sys_name>
         <sys_overrides/>
         <sys_package display_value="Absolute Software Connector" source="x_233073_absolute">5a575fafdbea1300d6fc9444ca96195c</sys_package>
@@ -53,8 +52,8 @@
         <sys_scope display_value="Absolute Software Connector">5a575fafdbea1300d6fc9444ca96195c</sys_scope>
         <sys_update_name>sys_ui_action_069114bfdb6e1300d6fc9444ca9619d2</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-06-14 12:21:26</sys_updated_on>
-        <table>cmdb_ci_computer</table>
+        <sys_updated_on>2018-06-16 23:19:44</sys_updated_on>
+        <table>x_233073_absolute_computer</table>
         <ui11_compatible>true</ui11_compatible>
         <ui16_compatible>false</ui16_compatible>
     </sys_ui_action>

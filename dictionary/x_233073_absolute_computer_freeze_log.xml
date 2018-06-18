@@ -3,6 +3,7 @@
     <element label="Computer Freeze Log" max_length="40" name="x_233073_absolute_computer_freeze_log" type="collection">
         <element label="Absolute Uid" max_length="100" name="absolute_uid" type="string"/>
         <element label="Action" max_length="40" name="action" type="string"/>
+        <element label="Notification eMail" max_length="40" name="email" type="string"/>
         <element label="Message" max_length="1000" name="message" type="string_full_utf8"/>
         <element label="parentSysid" max_length="100" name="parentsysid" type="string"/>
         <element label="Unfreeze Pin" max_length="8" name="unfreeze_pin" type="string"/>
