@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_documentation element="x_233073_absolute_os_serial_number" label="OS Serial Number" language="en" table="cmdb_ci_lb_cisco_css">
+        <sys_documentation action="INSERT_OR_UPDATE">
+            <element>x_233073_absolute_os_serial_number</element>
+            <help/>
+            <hint/>
+            <label>OS Serial Number</label>
+            <language>en</language>
+            <name>cmdb_ci_lb_cisco_css</name>
+            <plural>OS Serial Numbers</plural>
+            <sys_class_name>sys_documentation</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-06-19 21:00:34</sys_created_on>
+            <sys_id>b36e3ee5db321300d6fc9444ca9619b0</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>OS Serial Number</sys_name>
+            <sys_package display_value="Absolute Software Connector" source="x_233073_absolute">5a575fafdbea1300d6fc9444ca96195c</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Absolute Software Connector">5a575fafdbea1300d6fc9444ca96195c</sys_scope>
+            <sys_update_name>sys_documentation_cmdb_ci_lb_cisco_css_x_233073_absolute_os_serial_number_en</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-06-19 21:00:34</sys_updated_on>
+            <url/>
+            <url_target/>
+        </sys_documentation>
+    </sys_documentation>
+</record_update>

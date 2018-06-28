@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update table="sys_script_include">
+    <sys_script_include action="INSERT_OR_UPDATE">
+        <access>package_private</access>
+        <active>true</active>
+        <api_name>x_233073_absolute.importDev</api_name>
+        <client_callable>false</client_callable>
+        <description/>
+        <name>importDev</name>
+        <script><![CDATA[var importDev = Class.create();
+importDev.prototype = {
+    initialize: function() {
+    },
+	
+	importDev : function(sysid){
+	
+		var apiSecret = gs.getProperty('x_233073_absolute.Absolute_API_Secret');
+		var apiToken = gs.getProperty('x_233073_absolute.Absolute_API_Token');
+		
+		var api = new AbsoluteAPI(apiToken, apiSecret);
+		var snDevice = new GlideRecord('x_233073_absolute_computer');
+		snDevice.get(sysid);
+		var abtDevice = api.fetchAbsoluteSingleDevice(current.sys_id);
+		
+		
+		if(abtDevice != "" && typeof abtDevice != 'undefined'){
+			//Check to make sure we got an anser from the api and then assign the one computer to abtDevice
+			
+			//Basics Section
+			//Add a check here for if the serial number no longer matches
+			//snDevice.name = abtDevice.systemName;
+			snDevice.fully_quallified_domain_name = abtDevice.fullSystemName;
+			snDevice.ip_address = abtDevice.localIp;
+			snDevice.chassis_type = abtDevice.chassisType;
+			snDevice.manufacturer = this._getMake(abtDevice.systemManufacturer);
+			//Need to also do a lookup here to a table I think for a nice name in the Form Factor field
+			
+			
+			//Absolute Section
+		
+			snDevice.absolute_last_update = this._getDateTime(abtDevice.lastUpdatedUtc);
+			
+			snDevice.absolute_policy_group = abtDevice.policyGroupName;
+			snDevice.absolute_policy_group_id = abtDevice.policyGroupUid;
+			snDevice.ctes_active = abtDevice.isCTESActive;
+			snDevice.average_use = abtDevice.avgMinutesInUse;
+			snDevice.marked_as_stolen = abtDevice.isStolen;
+			
+			
+			//BIOS Section
+			snDevice.bios_version = abtDevice.bios.version;
+			snDevice.bios_release_date = abtDevice.bios.versionDate;
+			
+			//CPU Section
+			snDevice.cpu_core_count = abtDevice.cpu.physicalCores;
+			snDevice.cpu_core_thread = abtDevice.cpu.logiclCores / abtDevice.cpu.physicalCores;
+			snDevice.cpu_count ='1'; //Need to have a look at this..  Need na example of dual CPU system
+			///snDevice.cpu_manufacturer
+			snDevice.cpu_type = abtDevice.cpu.name;
+			snDevice.cpu_speed = abtDevice.cpu.processorSpeed;
+			
+			//Memory Section
+			snDevice.ram = (abtDevice.totalPhysicalRamBytes/1024)/1024;
+			
+			
+			
+			//OS Section
+			snDevice.operating_system = abtDevice.platformOSType;
+			snDevice.os_name = abtDevice.os.name;
+			
+			snDevice.os_address_width = String(abtDevice.os.architecture).slice(0,2);
+			snDevice.os_build = abtDevice.os.build;
+			snDevice.os_install_date = this._getDateTime(abtDevice.os.installDate);
+			snDevice.os_last_boot_time = this._getDateTime(abtDevice.os.lastBootTime);
+			snDevice.os_product_key = abtDevice.os.productKey;
+			snDevice.x_233073_absolute_os_serial_number = abtDevice.os.serialNumber;
+			snDevice.os_version = abtDevice.os.version;
+			snDevice.os_domain = abtDevice.domain;
+			
+			
+			//AV Section
+			snDevice.anti_virus_product = abtDevice.avpInfo.antivirusName;
+			snDevice.anti_virus_version = abtDevice.avpInfo.antivirusVersion;
+			snDevice.anti_virus_definition = abtDevice.avpInfo.antivirusDefinition;
+			snDevice.anti_virus_definition_date = this._getDateTime(abtDevice.avpInfo.antivirusDefinitionDate);
+			snDevice.last_anti_virus_status_update = this._getDateTime(abtDevice.avpInfo.antivirusDataReceivedUtc);
+			
+			
+			//Encryption Section
+			snDevice.encryption_algorithm = abtDevice.espInfo.encryptionAlgorithm;
+			snDevice.encryption_key_size =  abtDevice.espInfo.encryptionKeySize;
+			snDevice.encryption_product =  abtDevice.espInfo.encryptionProductName;
+			snDevice.encryption_status =  abtDevice.espInfo.encryptionStatus;
+			snDevice.encryption_status_message =  abtDevice.espInfo.encryptionStatusDescription;
+			snDevice.encryption_version =  abtDevice.espInfo.encryptionVersion;
+			
+			snDevice.last_encryption_status_update = this._getDateTime(abtDevice.espInfo.lastEncryptionDataReceivedUtc);
+			
+			//Display Section
+			snDevice.monitor = 'true';
+			//Need to check for elements in the displays section
+			
+			
+			snDevice.update();
+			
+		}
+		
+
+	},
+	
+	_getDateTime : function(epoc){
+		
+		var d = new Date(0); 
+		d.setUTCMilliseconds(epoc);
+			
+		var year = d.getFullYear();
+		var month = d.getUTCMonth();
+		var day = d.getUTCDate();
+		var hour = d.getUTCHours();
+		var mins = d.getUTCMinutes();
+		var sec = d.getUTCSeconds();
+		
+		var dateTimeString = String(year + "-" + month + "-" + day + " " + hour + ":" + mins + ":" + sec);
+		
+		var gd = new GlideDateTime(dateTimeString);
+		
+		return gd;
+		
+	},
+	
+	_getMake : function(name){
+		var comps = new GlideRecord('core_company');
+		comps.addQuery('name', name);
+		comps.query();
+		
+		if(comps.hasNext){
+			comps.next();
+			var compsysid = comps.sys_id;
+			return compsysid;
+			
+		}
+		else{
+			//Add in here the create if missing code
+		}
+		
+		
+		
+	},
+	
+
+    type: 'importDev'
+};]]></script>
+        <sys_class_name>sys_script_include</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2018-06-19 21:48:04</sys_created_on>
+        <sys_id>57247a61db321300d6fc9444ca9619cd</sys_id>
+        <sys_mod_count>42</sys_mod_count>
+        <sys_name>importDev</sys_name>
+        <sys_package display_value="Absolute Software Connector" source="x_233073_absolute">5a575fafdbea1300d6fc9444ca96195c</sys_package>
+        <sys_policy>read</sys_policy>
+        <sys_scope display_value="Absolute Software Connector">5a575fafdbea1300d6fc9444ca96195c</sys_scope>
+        <sys_update_name>sys_script_include_57247a61db321300d6fc9444ca9619cd</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2018-06-28 22:10:49</sys_updated_on>
+    </sys_script_include>
+</record_update>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element audit="true" extends="cmdb_ci_computer" label="Cisco UCS Rack Mount Unit" max_length="40" name="cmdb_ci_ucs_rack_unit" type="collection">
+        <element attributes="edge_encryption_enabled=true" label="OS Serial Number" max_length="100" name="x_233073_absolute_os_serial_number" type="string"/>
+    </element>
+</database>

@@ -32,16 +32,58 @@
         <sys_ui_form_section action="INSERT_OR_UPDATE">
             <position>2</position>
             <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-06-19 22:23:04</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>cc51dba1db721300d6fc9444ca9619fe</sys_id>
+            <sys_mod_count>1</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_233073_absolute_computer" name="x_233073_absolute_computer" sys_domain="global" view="Default view">d60d18dcdbbe5300d6fc9444ca961940</sys_ui_form>
+            <sys_ui_section caption="Operating System" display_value="Operating System" name="x_233073_absolute_computer" sys_domain="global" view="Default view">c051dba1db721300d6fc9444ca9619fb</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-06-19 22:23:04</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>3</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-06-19 22:27:13</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>c94217e1db721300d6fc9444ca9619a5</sys_id>
+            <sys_mod_count>1</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_233073_absolute_computer" name="x_233073_absolute_computer" sys_domain="global" view="Default view">d60d18dcdbbe5300d6fc9444ca961940</sys_ui_form>
+            <sys_ui_section caption="Anti-Virus Info" display_value="Anti-Virus Info" name="x_233073_absolute_computer" sys_domain="global" view="Default view">cd4217e1db721300d6fc9444ca9619a1</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-06-19 22:27:13</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>4</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-06-19 22:27:13</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>4d4257e1db721300d6fc9444ca9619a2</sys_id>
+            <sys_mod_count>1</sys_mod_count>
+            <sys_overrides/>
+            <sys_ui_form display_value="x_233073_absolute_computer" name="x_233073_absolute_computer" sys_domain="global" view="Default view">d60d18dcdbbe5300d6fc9444ca961940</sys_ui_form>
+            <sys_ui_section caption="Disk Encryption Info" display_value="Disk Encryption Info" name="x_233073_absolute_computer" sys_domain="global" view="Default view">c54217e1db721300d6fc9444ca9619a2</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-06-19 22:27:13</sys_updated_on>
+        </sys_ui_form_section>
+        <sys_ui_form_section action="INSERT_OR_UPDATE">
+            <position>5</position>
+            <sys_created_by>admin</sys_created_by>
             <sys_created_on>2018-06-15 20:22:34</sys_created_on>
             <sys_domain>global</sys_domain>
             <sys_domain_path>/</sys_domain_path>
             <sys_id>446f4698dbb29300d6fc9444ca96191e</sys_id>
-            <sys_mod_count>0</sys_mod_count>
+            <sys_mod_count>2</sys_mod_count>
             <sys_overrides/>
             <sys_ui_form display_value="x_233073_absolute_computer" name="x_233073_absolute_computer" sys_domain="global" view="Default view">d60d18dcdbbe5300d6fc9444ca961940</sys_ui_form>
             <sys_ui_section caption="Absolute" display_value="Absolute" name="x_233073_absolute_computer" sys_domain="global" view="Default view">806f4698dbb29300d6fc9444ca96191b</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-06-15 20:22:34</sys_updated_on>
+            <sys_updated_on>2018-06-19 22:27:13</sys_updated_on>
         </sys_ui_form_section>
         <sys_ui_form action="INSERT_OR_UPDATE">
             <name>x_233073_absolute_computer</name>

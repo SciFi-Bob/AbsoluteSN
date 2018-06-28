@@ -199,7 +199,7 @@ AbsoluteAPI.prototype = {
 		}
 	},
 	
-		fetchAbsoluteSingleDeviceItem : function(sysid, searchItem){
+	fetchAbsoluteSingleDeviceItem : function(sysid, searchItem){
 		//Creates and Sends the freeze request and notifies the user of what's going on  Also responsible for logging the event
 		try {
 			var id = this.fetchAbsoluteUid(sysid);
@@ -249,7 +249,53 @@ AbsoluteAPI.prototype = {
 		}
 	},
 	
-	
+	fetchAbsoluteSingleDevice : function(sysid){
+		//Creates and Sends the freeze request and notifies the user of what's going on  Also responsible for logging the event
+		try {
+			var id = this.fetchAbsoluteUid(sysid);
+			//Check to make sure that we got an ID back
+			if(id != "" && id != "error" && typeof id != 'undefined'){
+				
+				var query = "$filter=agentStatus eq 'A' and id eq '"+ id +"'";
+				var abtDT = this._getAbtDateTime();
+				var authH = this._generateAuthHeader(this.apiToken, this.apiSecret, abtDT, "GET", "/v2/reporting/devices", query, "");
+				
+				var r = new sn_ws.RESTMessageV2('x_233073_absolute.AbsoluteAPI', 'GetSingleDeviceWithID');
+				r.setStringParameterNoEscape('abtDateTime', abtDT);
+				r.setStringParameterNoEscape('abtAuthHeader', authH);
+				r.setStringParameterNoEscape('id', id);
+				
+				var response = r.execute();
+				var httpStatus = response.getStatusCode();
+				var sResponse = response.getBody(); //get response as string
+				
+				if(httpStatus == "200"){
+					//Api call worked 
+					var jResponse = global.JSON.parse(sResponse); //Convert response to Json Object
+					return jResponse[0];
+				}
+				else if(httpStatus == "400"){
+					var jResponse = global.JSON.parse(responseBody);
+					if(jResponse.errors[0]){
+						gs.addErrorMessage("Absolute: " + jResponse.errors[0].message);
+						return;
+					}
+					else{
+						gs.addErrorMessage("Absolute: Unknown Error");
+						return;
+					}
+				}
+				else if(httpStatus == "401"){
+					gs.addErrorMessage("Absolute: API Authentication failed");
+					return;
+				}
+			}
+		}
+		catch(ex){
+			var temp = ex;
+			return ex;
+		}
+	},
 	
 	
 	
@@ -363,13 +409,13 @@ AbsoluteAPI.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-06-13 18:23:12</sys_created_on>
         <sys_id>4eac9fa3db2e1300d6fc9444ca961933</sys_id>
-        <sys_mod_count>34</sys_mod_count>
+        <sys_mod_count>35</sys_mod_count>
         <sys_name>AbsoluteAPI</sys_name>
         <sys_package display_value="Absolute Software Connector" source="x_233073_absolute">5a575fafdbea1300d6fc9444ca96195c</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="Absolute Software Connector">5a575fafdbea1300d6fc9444ca96195c</sys_scope>
         <sys_update_name>sys_script_include_4eac9fa3db2e1300d6fc9444ca961933</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-06-16 23:33:09</sys_updated_on>
+        <sys_updated_on>2018-06-19 21:52:48</sys_updated_on>
     </sys_script_include>
 </record_update>

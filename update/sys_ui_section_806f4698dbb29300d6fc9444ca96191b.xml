@@ -2,114 +2,170 @@
 <record_update>
     <sys_ui_section caption="Absolute" section_id="806f4698dbb29300d6fc9444ca96191b" sys_domain="global" table="x_233073_absolute_computer" version="3" view="">
         <sys_ui_element action="INSERT_OR_UPDATE">
-            <element>absoluteesn</element>
+            <element>absolute_last_update</element>
             <position>0</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-06-15 20:22:35</sys_created_on>
-            <sys_id>146f4698dbb29300d6fc9444ca96194b</sys_id>
+            <sys_created_on>2018-06-19 22:23:05</sys_created_on>
+            <sys_id>14511fa1db721300d6fc9444ca9619c6</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Absolute" display_value="Absolute" name="x_233073_absolute_computer" sys_domain="global" view="Default view">806f4698dbb29300d6fc9444ca96191b</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-06-15 20:22:35</sys_updated_on>
+            <sys_updated_on>2018-06-19 22:23:05</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>absoluteesn</element>
+            <position>1</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-06-19 22:23:05</sys_created_on>
+            <sys_id>94511fa1db721300d6fc9444ca9619c6</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Absolute" display_value="Absolute" name="x_233073_absolute_computer" sys_domain="global" view="Default view">806f4698dbb29300d6fc9444ca96191b</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-06-19 22:23:05</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>absoluteuid</element>
-            <position>1</position>
+            <position>2</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-06-15 20:22:35</sys_created_on>
-            <sys_id>946f4698dbb29300d6fc9444ca96194b</sys_id>
+            <sys_created_on>2018-06-19 22:23:05</sys_created_on>
+            <sys_id>18511fa1db721300d6fc9444ca9619c6</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Absolute" display_value="Absolute" name="x_233073_absolute_computer" sys_domain="global" view="Default view">806f4698dbb29300d6fc9444ca96191b</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-06-15 20:22:35</sys_updated_on>
+            <sys_updated_on>2018-06-19 22:23:05</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>ctes_active</element>
+            <position>3</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-06-19 22:23:05</sys_created_on>
+            <sys_id>98511fa1db721300d6fc9444ca9619c6</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Absolute" display_value="Absolute" name="x_233073_absolute_computer" sys_domain="global" view="Default view">806f4698dbb29300d6fc9444ca96191b</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-06-19 22:23:05</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>.split</element>
-            <position>2</position>
+            <position>4</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-06-15 20:22:35</sys_created_on>
-            <sys_id>186f4698dbb29300d6fc9444ca96194b</sys_id>
+            <sys_created_on>2018-06-19 22:23:05</sys_created_on>
+            <sys_id>1c511fa1db721300d6fc9444ca9619c6</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Absolute" display_value="Absolute" name="x_233073_absolute_computer" sys_domain="global" view="Default view">806f4698dbb29300d6fc9444ca96191b</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-06-15 20:22:35</sys_updated_on>
+            <sys_updated_on>2018-06-19 22:23:05</sys_updated_on>
             <sys_user/>
             <type>.split</type>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>freeze_status</element>
-            <position>3</position>
+            <position>5</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-06-15 20:22:35</sys_created_on>
-            <sys_id>986f4698dbb29300d6fc9444ca96194b</sys_id>
+            <sys_created_on>2018-06-19 22:23:05</sys_created_on>
+            <sys_id>9c511fa1db721300d6fc9444ca9619c6</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Absolute" display_value="Absolute" name="x_233073_absolute_computer" sys_domain="global" view="Default view">806f4698dbb29300d6fc9444ca96191b</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-06-15 20:22:35</sys_updated_on>
+            <sys_updated_on>2018-06-19 22:23:05</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>freezerequested</element>
-            <position>4</position>
+            <position>6</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-06-15 20:22:35</sys_created_on>
-            <sys_id>1c6f4698dbb29300d6fc9444ca96194b</sys_id>
+            <sys_created_on>2018-06-19 22:23:05</sys_created_on>
+            <sys_id>10511fa1db721300d6fc9444ca9619c7</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Absolute" display_value="Absolute" name="x_233073_absolute_computer" sys_domain="global" view="Default view">806f4698dbb29300d6fc9444ca96191b</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-06-15 20:22:35</sys_updated_on>
+            <sys_updated_on>2018-06-19 22:23:05</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>absolute_policy_group</element>
+            <position>7</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-06-19 22:23:05</sys_created_on>
+            <sys_id>90511fa1db721300d6fc9444ca9619c7</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Absolute" display_value="Absolute" name="x_233073_absolute_computer" sys_domain="global" view="Default view">806f4698dbb29300d6fc9444ca96191b</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-06-19 22:23:05</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>absolute_policy_group_id</element>
+            <position>8</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-06-19 22:23:05</sys_created_on>
+            <sys_id>14511fa1db721300d6fc9444ca9619c7</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Absolute" display_value="Absolute" name="x_233073_absolute_computer" sys_domain="global" view="Default view">806f4698dbb29300d6fc9444ca96191b</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-06-19 22:23:05</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>.end_split</element>
-            <position>5</position>
+            <position>9</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-06-15 20:22:35</sys_created_on>
-            <sys_id>9c6f4698dbb29300d6fc9444ca96194b</sys_id>
+            <sys_created_on>2018-06-19 22:23:05</sys_created_on>
+            <sys_id>94511fa1db721300d6fc9444ca9619c7</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Absolute" display_value="Absolute" name="x_233073_absolute_computer" sys_domain="global" view="Default view">806f4698dbb29300d6fc9444ca96191b</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-06-15 20:22:35</sys_updated_on>
+            <sys_updated_on>2018-06-19 22:23:05</sys_updated_on>
             <sys_user/>
             <type>.end_split</type>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>short_description</element>
-            <position>6</position>
+            <position>10</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-06-15 20:22:35</sys_created_on>
-            <sys_id>106f4698dbb29300d6fc9444ca96194c</sys_id>
+            <sys_created_on>2018-06-19 22:23:05</sys_created_on>
+            <sys_id>18511fa1db721300d6fc9444ca9619c7</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter/>
             <sys_ui_section caption="Absolute" display_value="Absolute" name="x_233073_absolute_computer" sys_domain="global" view="Default view">806f4698dbb29300d6fc9444ca96191b</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-06-15 20:22:35</sys_updated_on>
+            <sys_updated_on>2018-06-19 22:23:05</sys_updated_on>
             <sys_user/>
             <type/>
         </sys_ui_element>
         <sys_ui_element action="INSERT_OR_UPDATE">
             <element>ui_ng_relation_formatter.xml</element>
-            <position>7</position>
+            <position>11</position>
             <sys_created_by>admin</sys_created_by>
-            <sys_created_on>2018-06-15 20:22:35</sys_created_on>
-            <sys_id>906f4698dbb29300d6fc9444ca96194c</sys_id>
+            <sys_created_on>2018-06-19 22:23:05</sys_created_on>
+            <sys_id>98511fa1db721300d6fc9444ca9619c7</sys_id>
             <sys_mod_count>0</sys_mod_count>
             <sys_ui_formatter display_value="CI Relations">b62309137f32310009fedf92bdfa912b</sys_ui_formatter>
             <sys_ui_section caption="Absolute" display_value="Absolute" name="x_233073_absolute_computer" sys_domain="global" view="Default view">806f4698dbb29300d6fc9444ca96191b</sys_ui_section>
             <sys_updated_by>admin</sys_updated_by>
-            <sys_updated_on>2018-06-15 20:22:35</sys_updated_on>
+            <sys_updated_on>2018-06-19 22:23:05</sys_updated_on>
             <sys_user/>
             <type>formatter</type>
         </sys_ui_element>

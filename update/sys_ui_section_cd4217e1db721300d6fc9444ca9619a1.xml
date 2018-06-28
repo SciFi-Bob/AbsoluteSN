@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<record_update>
+    <sys_ui_section caption="Anti-Virus Info" section_id="cd4217e1db721300d6fc9444ca9619a1" sys_domain="global" table="x_233073_absolute_computer" version="3" view="">
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>anti_virus_product</element>
+            <position>0</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-06-19 22:27:14</sys_created_on>
+            <sys_id>d54257e1db721300d6fc9444ca9619c7</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Anti-Virus Info" display_value="Anti-Virus Info" name="x_233073_absolute_computer" sys_domain="global" view="Default view">cd4217e1db721300d6fc9444ca9619a1</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-06-19 22:27:14</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>anti_virus_definition</element>
+            <position>1</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-06-19 22:27:14</sys_created_on>
+            <sys_id>594257e1db721300d6fc9444ca9619c7</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Anti-Virus Info" display_value="Anti-Virus Info" name="x_233073_absolute_computer" sys_domain="global" view="Default view">cd4217e1db721300d6fc9444ca9619a1</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-06-19 22:27:14</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>.split</element>
+            <position>2</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-06-19 22:27:14</sys_created_on>
+            <sys_id>d94257e1db721300d6fc9444ca9619c7</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Anti-Virus Info" display_value="Anti-Virus Info" name="x_233073_absolute_computer" sys_domain="global" view="Default view">cd4217e1db721300d6fc9444ca9619a1</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-06-19 22:27:14</sys_updated_on>
+            <sys_user/>
+            <type>.split</type>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>anti_virus_version</element>
+            <position>3</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-06-19 22:27:14</sys_created_on>
+            <sys_id>5d4257e1db721300d6fc9444ca9619c7</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Anti-Virus Info" display_value="Anti-Virus Info" name="x_233073_absolute_computer" sys_domain="global" view="Default view">cd4217e1db721300d6fc9444ca9619a1</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-06-19 22:27:14</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>anti_virus_definition_date</element>
+            <position>4</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-06-19 22:27:14</sys_created_on>
+            <sys_id>dd4257e1db721300d6fc9444ca9619c7</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Anti-Virus Info" display_value="Anti-Virus Info" name="x_233073_absolute_computer" sys_domain="global" view="Default view">cd4217e1db721300d6fc9444ca9619a1</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-06-19 22:27:14</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_element action="INSERT_OR_UPDATE">
+            <element>last_anti_virus_status_update</element>
+            <position>5</position>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-06-19 22:27:14</sys_created_on>
+            <sys_id>514257e1db721300d6fc9444ca9619c8</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_ui_formatter/>
+            <sys_ui_section caption="Anti-Virus Info" display_value="Anti-Virus Info" name="x_233073_absolute_computer" sys_domain="global" view="Default view">cd4217e1db721300d6fc9444ca9619a1</sys_ui_section>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-06-19 22:27:14</sys_updated_on>
+            <sys_user/>
+            <type/>
+        </sys_ui_element>
+        <sys_ui_section action="INSERT_OR_UPDATE">
+            <caption>Anti-Virus Info</caption>
+            <header>false</header>
+            <name>x_233073_absolute_computer</name>
+            <roles/>
+            <sys_class_name>sys_ui_section</sys_class_name>
+            <sys_created_by>admin</sys_created_by>
+            <sys_created_on>2018-06-19 22:27:13</sys_created_on>
+            <sys_domain>global</sys_domain>
+            <sys_domain_path>/</sys_domain_path>
+            <sys_id>cd4217e1db721300d6fc9444ca9619a1</sys_id>
+            <sys_mod_count>0</sys_mod_count>
+            <sys_name>Anti-Virus Info</sys_name>
+            <sys_overrides/>
+            <sys_package display_value="Absolute Software Connector" source="x_233073_absolute">5a575fafdbea1300d6fc9444ca96195c</sys_package>
+            <sys_policy/>
+            <sys_scope display_value="Absolute Software Connector">5a575fafdbea1300d6fc9444ca96195c</sys_scope>
+            <sys_update_name>sys_ui_section_cd4217e1db721300d6fc9444ca9619a1</sys_update_name>
+            <sys_updated_by>admin</sys_updated_by>
+            <sys_updated_on>2018-06-19 22:27:13</sys_updated_on>
+            <sys_user/>
+            <title>false</title>
+            <view display_value="Default view" name="NULL">Default view</view>
+            <view_name/>
+        </sys_ui_section>
+    </sys_ui_section>
+</record_update>

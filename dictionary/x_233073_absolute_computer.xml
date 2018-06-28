@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database>
-    <element extends="cmdb_ci_computer" label="Computer" max_length="40" name="x_233073_absolute_computer" sizeclass="1" type="collection">
+    <element extends="cmdb_ci_computer" label="Computer" max_length="40" name="x_233073_absolute_computer" sizeclass="2" type="collection">
         <element label="AbsoluteESN" max_length="40" name="absoluteesn" type="string"/>
         <element label="AbsoluteUid" max_length="40" name="absoluteuid" type="string"/>
         <element label="Absolute Last Update" max_length="40" name="absolute_last_update" type="glide_date_time"/>
         <element label="Absolute Policy Group" max_length="40" name="absolute_policy_group" type="string"/>
         <element label="Absolute Policy Group ID" max_length="40" name="absolute_policy_group_id" type="string"/>
         <element label="Anti-Virus Definition" max_length="40" name="anti_virus_definition" type="string"/>
+        <element label="Anti-Virus Definition Date" max_length="40" name="anti_virus_definition_date" type="glide_date"/>
         <element label="Anti-Virus Product" max_length="40" name="anti_virus_product" type="string"/>
         <element label="Anti-Virus Version" max_length="40" name="anti_virus_version" type="string"/>
         <element label="Average Use (In Minutes)" max_length="40" name="average_use_in_minutes" type="string"/>
@@ -24,10 +25,16 @@
         <element label="Encryption Version" max_length="40" name="encryption_version" type="string"/>
         <element label="FreezeRequested" max_length="40" name="freezerequested" type="boolean"/>
         <element default="Not Frozen" label="Freeze Status" max_length="40" name="freeze_status" type="string"/>
+        <element label="Last Anti-Virus Status Update" max_length="40" name="last_anti_virus_status_update" type="glide_date"/>
+        <element label="Last Encryption Status Update" max_length="40" name="last_encryption_status_update" type="glide_date"/>
         <element label="Marked As Stolen" max_length="40" name="marked_as_stolen" type="boolean"/>
+        <element label="OS Build" max_length="40" name="os_build" type="string"/>
         <element label="OS Install Date" max_length="40" name="os_install_date" type="glide_date"/>
         <element label="OS Last Boot Time" max_length="40" name="os_last_boot_time" type="glide_date_time"/>
+        <element label="OS Name" max_length="100" name="os_name" type="string"/>
         <element label="OS Product Key" max_length="40" name="os_product_key" type="string"/>
+        <element label="OS UBR" max_length="40" name="os_ubr" type="string"/>
         <element label="Use Classification" max_length="40" name="use_classification" type="string"/>
+        <element attributes="edge_encryption_enabled=true" label="OS Serial Number" max_length="100" name="x_233073_absolute_os_serial_number" type="string"/>
     </element>
 </database>
