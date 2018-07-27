@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database>
+    <element label="Absolute Audit Log" max_length="40" name="x_233073_absolute_absolute_audit_log" type="collection">
+        <element label="New Value" max_length="40" name="new_value" type="string"/>
+        <element label="Old Value" max_length="40" name="old_value" type="string"/>
+        <element label="parentSysID" max_length="100" name="parentsysid" type="string"/>
+        <element label="Updated Field" max_length="40" name="updated_field" type="string"/>
+    </element>
+</database>
