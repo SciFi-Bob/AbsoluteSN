@@ -116,6 +116,9 @@ importDev.prototype = {
 			
 			snDevice.update();
 			
+			var cdfData = api.getCDF(snDevice.absoluteuid);
+			var test = "123";
+			
 		}
 		
 
@@ -174,7 +177,6 @@ importDev.prototype = {
 		
 	},
 	
-	
 	_processMemory : function(memories, ci){
 		
 		var ciMemories = new GlideRecord('cmdb_ci_memory_module');
@@ -212,7 +214,6 @@ importDev.prototype = {
 			}
 		},
 	
-	
 	_processDisks : function(disks, ci){
 		
 		var ciDisks = new GlideRecord('cmdb_ci_storage_device');
@@ -231,7 +232,8 @@ importDev.prototype = {
 				if(ciDisks.hasNext()){
 					//We found the module, so need to make sure it's still installed in the same computer
 					ciDisks.next();
-					if(ciDisks.computer != ci){ciDisks.computer = ci; }
+					if(ciDisks.computer != ci){ciDisks.computer = ci; ciDisks.update(); }
+					
 					
 				}
 				else{
@@ -250,18 +252,14 @@ importDev.prototype = {
 			}
 		},
 	
-	
 	_processVolumes : function(volumes, ci){
 		
 		var ciVolumes = new GlideRecord('cmdb_ci_file_system');
 		
 		for(var i = 0; i < volumes.length; i++){
 			var vol = volumes[i];
-			
-				ciVolumes.addQuery('name' , vol.name);
-				ciVolumes.query();
-				
-				if(ciVolumes.hasNext()){
+								
+				if(this._doesVolExist(vol.serial)){
 					//We found the module, so need to make sure it's still installed in the same computer
 					 
 					
@@ -270,6 +268,7 @@ importDev.prototype = {
 					//We didn't find the module so need to add it
 					
 					ciVolumes.newRecord();
+					ciVolumes.serial_number = vol.serial;
 					ciVolumes.name = vol.name;
 					ciVolumes.mount_point = vol.id;
 					ciVolumes.file_system = vol.fileSystem;
@@ -282,6 +281,23 @@ importDev.prototype = {
 			
 		},
 	
+	_doesVolExist : function(sn){
+		var ciVolumes = new GlideRecord('cmdb_ci_file_system');
+		ciVolumes.addQuery('serial_number' , sn);
+			
+				ciVolumes.query();
+				
+				if(ciVolumes.hasNext()){
+					//We found the module, so need to make sure it's still installed in the same computer
+					return true;
+					
+				}
+				else{
+					return false;
+				}
+		
+	},
+	
 	
 	
 	
@@ -293,13 +309,13 @@ importDev.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-06-19 21:48:04</sys_created_on>
         <sys_id>57247a61db321300d6fc9444ca9619cd</sys_id>
-        <sys_mod_count>86</sys_mod_count>
+        <sys_mod_count>92</sys_mod_count>
         <sys_name>importDev</sys_name>
         <sys_package display_value="Absolute Software Connector" source="x_233073_absolute">5a575fafdbea1300d6fc9444ca96195c</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="Absolute Software Connector">5a575fafdbea1300d6fc9444ca96195c</sys_scope>
         <sys_update_name>sys_script_include_57247a61db321300d6fc9444ca9619cd</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-07-27 14:05:50</sys_updated_on>
+        <sys_updated_on>2018-07-27 15:37:20</sys_updated_on>
     </sys_script_include>
 </record_update>

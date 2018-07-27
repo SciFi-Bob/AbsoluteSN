@@ -297,6 +297,62 @@ AbsoluteAPI.prototype = {
 		}
 	},
 	
+	getCDF : function (uid){
+		
+			try {
+				
+				var abtDT = this._getAbtDateTime();
+				var idPath = "/v2/devices/"+uid+"/cdf";
+				var authH = this._generateAuthHeader(this.apiToken, this.apiSecret, abtDT, "GET", idPath, "", "");
+				
+				var r = new sn_ws.RESTMessageV2('x_233073_absolute.AbsoluteAPI', 'fetchCDFValues');
+				r.setStringParameterNoEscape('abtDateTime', abtDT);
+				r.setStringParameterNoEscape('abtAuthHeader', authH);
+				r.setStringParameterNoEscape('id', uid);
+				
+				var response = r.execute();
+				var httpStatus = response.getStatusCode();
+				var sResponse = response.getBody(); //get response as string
+				
+				
+				if(httpStatus == "200"){
+					//We got a good response from the API
+					if(sResponse == "[]"){
+						//The response was blank so we did not find the Serial Number
+						gs.addErrorMessage("This computer is either not registered with Absolute or the agent is not enabled!");
+						return ""; //Need an error Message here
+					}
+					else{
+						//We got a valid response
+						return global.JSON.parse(sResponse).cdfData; //Convert response to Json Object and return
+					}
+				}
+				else if(httpStatus == "400"){
+					var jResponse = global.JSON.parse(sResponse); //Convert response to Json Object
+					if(jResponse.errors[0]){
+						gs.addErrorMessage("Freeze failed: " + jResponse.errors[0].message);
+						return "";
+					}
+					else{
+						gs.addErrorMessage("ID Lookup Failed: Unknown Error");
+						return "";
+					}
+				}
+				else if(httpStatus == "401"){
+					gs.addErrorMessage("ID Lookup Failed: API Authentication failed");
+					return "";
+				}
+				else{
+					gs.addErrorMessage("ID Lookup Failed: Unknown Error");
+					return "";
+				}
+			}
+			catch(ex) {
+				var temp = ex;
+				return "error";
+			}
+	},
+	
 	
 	
 	
@@ -409,13 +465,13 @@ AbsoluteAPI.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-06-13 18:23:12</sys_created_on>
         <sys_id>4eac9fa3db2e1300d6fc9444ca961933</sys_id>
-        <sys_mod_count>35</sys_mod_count>
+        <sys_mod_count>37</sys_mod_count>
         <sys_name>AbsoluteAPI</sys_name>
         <sys_package display_value="Absolute Software Connector" source="x_233073_absolute">5a575fafdbea1300d6fc9444ca96195c</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="Absolute Software Connector">5a575fafdbea1300d6fc9444ca96195c</sys_scope>
         <sys_update_name>sys_script_include_4eac9fa3db2e1300d6fc9444ca961933</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-06-19 21:52:48</sys_updated_on>
+        <sys_updated_on>2018-07-27 15:21:49</sys_updated_on>
     </sys_script_include>
 </record_update>
