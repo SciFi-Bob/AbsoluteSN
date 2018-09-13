@@ -28,11 +28,13 @@ importDev.prototype = {
 			
 			//Basics Section
 			//Add a check here for if the serial number no longer matches
-			//snDevice.name = abtDevice.systemName;
+			snDevice.name = abtDevice.systemName;
 			snDevice.fully_quallified_domain_name = abtDevice.fullSystemName;
 			snDevice.ip_address = abtDevice.localIp;
 			snDevice.chassis_type = abtDevice.chassisType;
 			snDevice.manufacturer = this._getMake(abtDevice.systemManufacturer);
+			snDevice.model_id = this._getModel(abtDevice.systemManufacturer, abtDevice.systemModel);
+			snDevice.assigned_to = this._getUserID(abtDevice.username);
 			//Need to also do a lookup here to a table I think for a nice name in the Form Factor field
 			
 			
@@ -72,6 +74,7 @@ importDev.prototype = {
 			
 			//Disks and Volumes
 			
+			snDevice.disk_space = this._getMainDiskSize(abtDevice.volumes);
 			this._processDisks(abtDevice.disks, current.sys_id);
 			this._processVolumes(abtDevice.volumes, current.sys_id);
 			
@@ -89,6 +92,7 @@ importDev.prototype = {
 			snDevice.x_233073_absolute_os_serial_number = abtDevice.os.serialNumber;
 			snDevice.os_version = abtDevice.os.version;
 			snDevice.os_domain = abtDevice.domain;
+			//snDevice.dns_domain = abtDevice.domain;
 			
 			
 			//AV Section
@@ -116,8 +120,8 @@ importDev.prototype = {
 			
 			snDevice.update();
 			
-			var cdfData = api.getCDF(snDevice.absoluteuid);
-			var test = "123";
+			//var cdfData = api.getCDF(snDevice.absoluteuid);
+			//var test = "123";
 			
 		}
 		
@@ -157,6 +161,39 @@ importDev.prototype = {
 		}
 		else{
 			//Add in here the create if missing code
+		}
+		
+		
+		
+	},
+	
+	_getUserID : function(username){
+		var user = username.slice(username.indexOf("\\")+1, username.length);
+		
+		var users = new GlideRecord('sys_user');
+		users.addQuery('user_name', user);
+		users.query();
+		
+		if(users.hasNext()){
+			users.next();
+			return users.sys_id;
+		}
+		
+	},
+	
+	_getModel : function(make, model){
+		var models = new GlideRecord('cmdb_hardware_product_model');
+		disname = make + " " + model;
+		models.addQuery('display_name', disname);
+		models.query();
+		
+		if(models.hasNext()){
+			models.next();
+			var modelsysid = models.sys_id;
+			return modelsysid;
+		}
+		else{
+			//Add in here to create if missing code
 		}
 		
 		
@@ -214,6 +251,19 @@ importDev.prototype = {
 			}
 		},
 	
+	_getMainDiskSize : function(disks){
+		for(var i = 0; i < disks.length; i++){
+			var disk = disks[i];
+			
+			var isBoot = disk.boot;
+			
+			if(isBoot){
+				var dsizeGB = Math.round((disk.freeSpaceBytes/1024)/1024).toFixed(0);
+				return dsizeGB;
+			}
+		}
+	},
+	
 	_processDisks : function(disks, ci){
 		
 		var ciDisks = new GlideRecord('cmdb_ci_storage_device');
@@ -221,8 +271,7 @@ importDev.prototype = {
 		for(var i = 0; i < disks.length; i++){
 			var disk = disks[i];
 			
-			
-			//Check to make sure we have a serial number to track the memory stick with
+			//Check to make sure we have a serial number to track the Disk with
 			var valid = 'serialNumber' in disk ? true : false;
 			
 			if(valid){
@@ -309,13 +358,13 @@ importDev.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-06-19 21:48:04</sys_created_on>
         <sys_id>57247a61db321300d6fc9444ca9619cd</sys_id>
-        <sys_mod_count>92</sys_mod_count>
+        <sys_mod_count>113</sys_mod_count>
         <sys_name>importDev</sys_name>
         <sys_package display_value="Absolute Software Connector" source="x_233073_absolute">5a575fafdbea1300d6fc9444ca96195c</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="Absolute Software Connector">5a575fafdbea1300d6fc9444ca96195c</sys_scope>
         <sys_update_name>sys_script_include_57247a61db321300d6fc9444ca9619cd</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-07-27 15:37:20</sys_updated_on>
+        <sys_updated_on>2018-09-06 14:25:36</sys_updated_on>
     </sys_script_include>
 </record_update>
