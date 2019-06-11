@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database>
-    <element extends="cmdb_ci_computer" label="Computer" max_length="40" name="x_233073_absolute_computer" sizeclass="6" type="collection">
+    <element extends="cmdb_ci_computer" label="Computer" max_length="40" name="x_233073_absolute_computer" sizeclass="1" type="collection">
         <element label="AbsoluteESN" max_length="40" name="absoluteesn" read_only="true" type="string"/>
         <element label="AbsoluteUid" max_length="40" name="absoluteuid" read_only="true" type="string"/>
         <element label="Absolute Last Update" max_length="40" name="absolute_last_update" read_only="true" type="glide_date_time"/>

@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <record_update sys_domain="global" table="sys_ui_action">
     <sys_ui_action action="INSERT_OR_UPDATE">
-        <action_name>Unfreeze Computer</action_name>
+        <action_name/>
         <active>true</active>
         <client>false</client>
-        <comments>current.freezerequested == true</comments>
+        <comments/>
         <condition/>
         <form_action>true</form_action>
         <form_button>true</form_button>
         <form_context_menu>false</form_context_menu>
-        <form_link>false</form_link>
+        <form_link>true</form_link>
         <form_style/>
         <hint/>
         <list_action>false</list_action>
@@ -20,42 +20,37 @@
         <list_link>false</list_link>
         <list_save_with_form_button>false</list_save_with_form_button>
         <list_style/>
-        <name>Unfreeze Computer</name>
+        <name>Test</name>
         <onclick/>
         <order>100</order>
-        <script><![CDATA[//var apiSecret = "4279d3cf-6853-4fee-813b-a4f2d699d32e";
-//var apiToken = "4e2d1917-ea93-4c24-8b76-d8cc1ea8145d";
-
-var apiSecret = gs.getProperty('x_233073_absolute.Absolute_API_Secret');
+        <script><![CDATA[var apiSecret = gs.getProperty('x_233073_absolute.Absolute_API_Secret');
 var apiToken = gs.getProperty('x_233073_absolute.Absolute_API_Token');
+var api = new AbsoluteAPI(apiToken, apiSecret);
 
-var abtApi = new AbsoluteAPI(apiToken, apiSecret );
+var answer;
+action.setRedirectURL(current);
+answer = api.fetchAllAbsoluteDevices('cpu,os');
 
-var sysid = current.sys_id;
-
-
-abtApi.unFreezeDevice(sysid);
-
-action.setRedirectURL(current);]]></script>
-        <show_insert>false</show_insert>
+var a = 1+1;]]></script>
+        <show_insert>true</show_insert>
         <show_multiple_update>false</show_multiple_update>
         <show_query>false</show_query>
         <show_update>true</show_update>
         <sys_class_name>sys_ui_action</sys_class_name>
         <sys_created_by>admin</sys_created_by>
-        <sys_created_on>2018-06-13 22:56:49</sys_created_on>
+        <sys_created_on>2019-06-11 15:05:26</sys_created_on>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
-        <sys_id>f12f9077dbae1300d6fc9444ca96192d</sys_id>
-        <sys_mod_count>13</sys_mod_count>
-        <sys_name>Unfreeze Computer</sys_name>
+        <sys_id>c11cc02c4f42330024a5aa95d310c72b</sys_id>
+        <sys_mod_count>7</sys_mod_count>
+        <sys_name>Test</sys_name>
         <sys_overrides/>
         <sys_package display_value="Absolute Software Connector" source="x_233073_absolute">5a575fafdbea1300d6fc9444ca96195c</sys_package>
         <sys_policy/>
         <sys_scope display_value="Absolute Software Connector">5a575fafdbea1300d6fc9444ca96195c</sys_scope>
-        <sys_update_name>sys_ui_action_f12f9077dbae1300d6fc9444ca96192d</sys_update_name>
+        <sys_update_name>sys_ui_action_c11cc02c4f42330024a5aa95d310c72b</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-02-01 14:20:40</sys_updated_on>
+        <sys_updated_on>2019-06-11 16:59:56</sys_updated_on>
         <table>x_233073_absolute_computer</table>
         <ui11_compatible>true</ui11_compatible>
         <ui16_compatible>false</ui16_compatible>

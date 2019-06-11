@@ -353,8 +353,141 @@ AbsoluteAPI.prototype = {
 			}
 	},
 	
+	fetchAllAbsoluteDevices : function(select) {
+		
+		var batchSize = 200; //Dictates how many devices are collected each cycle.  Not advisable to increase over 400
+		var objectSelectStatement = select; //List of fields that are to be collected from Absolute.
+		
+		var page = 0;
+		var lastBatchSize = 0;
+		var thisBatch;
+		var devices;
+		
+		if(objectSelectStatement == ""){
+			devices = this._fetchAllAbsoluteDevicesBatch(page,batchSize);
+			lastBatchSize = devices.length;
+			page = devices.length;
+			
+			while(lastBatchSize == batchSize){
+				thisBatch = this._fetchAllAbsoluteDevicesBatch(page,batchSize);
+				lastBatchSize = thisBatch.length;
+				devices.concat(thisBatch);
+				page = page + thisBatch.length;
+			}
+			
+			return devices;
+		}
+		else{
+			devices = this._fetchAllAbsoluteDevicesBatchWithSelect(page,batchSize,objectSelectStatement);
+			lastBatchSize = devices.length;
+			page = devices.length;
+			
+			while(lastBatchSize == batchSize){
+				thisBatch = this._fetchAllAbsoluteDevicesBatchWithSelect(page,batchSize,objectSelectStatement);
+				lastBatchSize = thisBatch.length;
+				devices.concat(thisBatch);
+				page = page + thisBatch.length;
+			}
+			
+			return devices;
+			
+		}
+		
+		
+		
+	},
 	
+	_fetchAllAbsoluteDevicesBatch : function(startCount,batchSize) {
+		
+		try {
+			
+				var query = "$filter=agentStatus eq 'A'&$skip="+ startCount +"&$top="+ batchSize + "";
+				var abtDT = this._getAbtDateTime();
+				var authH = this._generateAuthHeader(this.apiToken, this.apiSecret, abtDT, "GET", "/v2/reporting/devices", query, "");
+				
+				var r = new sn_ws.RESTMessageV2('x_233073_absolute.AbsoluteAPI', 'getAlldevicesWithLimit');
+				r.setStringParameterNoEscape('abtDateTime', abtDT);
+				r.setStringParameterNoEscape('abtAuthHeader', authH);
+				r.setStringParameterNoEscape('top', batchSize);
+				r.setStringParameterNoEscape('skip', startCount);
+				
+				var response = r.execute();
+				var httpStatus = response.getStatusCode();
+				var sResponse = response.getBody(); //get response as string
+			
+				if(httpStatus == "200"){
+					//Api call worked 
+					var jResponse = global.JSON.parse(sResponse); //Convert response to Json Object
+					return jResponse;
+				}
+				else if(httpStatus == "400"){
+					var jResponse = global.JSON.parse(responseBody);
+					if(jResponse.errors[0]){
+						gs.addErrorMessage("Absolute: " + jResponse.errors[0].message);
+						return;
+					}
+					else{
+						gs.addErrorMessage("Absolute: Unknown Error");
+						return;
+					}
+				}
+				else if(httpStatus == "401"){
+					gs.addErrorMessage("Absolute: API Authentication failed");
+					return;
+				}
+		}
+		catch(ex){
+			var temp = ex;
+			return ex;
+		}
+	},
 	
+	_fetchAllAbsoluteDevicesBatchWithSelect : function(startCount,batchSize,select) {
+		
+		try {
+			
+				var query = "$filter=agentStatus eq 'A'&$select=" + select + "&$skip="+ startCount +"&$top="+ batchSize + "";
+				var abtDT = this._getAbtDateTime();
+				var authH = this._generateAuthHeader(this.apiToken, this.apiSecret, abtDT, "GET", "/v2/reporting/devices", query, "");
+				
+				var r = new sn_ws.RESTMessageV2('x_233073_absolute.AbsoluteAPI', 'getAlldevicesWithLimitandSelect');
+				r.setStringParameterNoEscape('abtDateTime', abtDT);
+				r.setStringParameterNoEscape('abtAuthHeader', authH);
+				r.setStringParameterNoEscape('top', batchSize);
+				r.setStringParameterNoEscape('skip', startCount);
+				r.setStringParameterNoEscape('select', select);
+			
+				
+				var response = r.execute();
+				var httpStatus = response.getStatusCode();
+				var sResponse = response.getBody(); //get response as string
+			
+				if(httpStatus == "200"){
+					//Api call worked 
+					var jResponse = global.JSON.parse(sResponse); //Convert response to Json Object
+					return jResponse;
+				}
+				else if(httpStatus == "400"){
+					var jResponse = global.JSON.parse(responseBody);
+					if(jResponse.errors[0]){
+						gs.addErrorMessage("Absolute: " + jResponse.errors[0].message);
+						return;
+					}
+					else{
+						gs.addErrorMessage("Absolute: Unknown Error");
+						return;
+					}
+				}
+				else if(httpStatus == "401"){
+					gs.addErrorMessage("Absolute: API Authentication failed");
+					return;
+				}
+		}
+		catch(ex){
+			var temp = ex;
+			return ex;
+		}
+	},
 	
 	
 	//Generates the Complete Auth Header
@@ -465,13 +598,13 @@ AbsoluteAPI.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-06-13 18:23:12</sys_created_on>
         <sys_id>4eac9fa3db2e1300d6fc9444ca961933</sys_id>
-        <sys_mod_count>37</sys_mod_count>
+        <sys_mod_count>49</sys_mod_count>
         <sys_name>AbsoluteAPI</sys_name>
         <sys_package display_value="Absolute Software Connector" source="x_233073_absolute">5a575fafdbea1300d6fc9444ca96195c</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="Absolute Software Connector">5a575fafdbea1300d6fc9444ca96195c</sys_scope>
         <sys_update_name>sys_script_include_4eac9fa3db2e1300d6fc9444ca961933</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2018-07-27 15:21:49</sys_updated_on>
+        <sys_updated_on>2019-06-11 17:03:37</sys_updated_on>
     </sys_script_include>
 </record_update>
