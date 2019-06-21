@@ -12,16 +12,16 @@
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-06-15 14:58:41</sys_created_on>
         <sys_id>00144114db329300d6fc9444ca961916</sys_id>
-        <sys_mod_count>5</sys_mod_count>
+        <sys_mod_count>7</sys_mod_count>
         <sys_name>x_233073_absolute.Absolute_API_Token</sys_name>
         <sys_package display_value="Absolute Software Connector" source="x_233073_absolute">5a575fafdbea1300d6fc9444ca96195c</sys_package>
         <sys_policy/>
         <sys_scope display_value="Absolute Software Connector">5a575fafdbea1300d6fc9444ca96195c</sys_scope>
         <sys_update_name>sys_properties_00144114db329300d6fc9444ca961916</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-02-01 12:31:44</sys_updated_on>
+        <sys_updated_on>2019-06-17 14:57:02</sys_updated_on>
         <type>string</type>
-        <value>4e2d1917-ea93-4c24-8b76-d8cc1ea8145d</value>
+        <value>8cc643af-9c01-48fa-9c84-b1bdf3c770a5</value>
         <write_roles>admin</write_roles>
     </sys_properties>
     <sys_translated_text action="delete_multiple" query="documentkey=00144114db329300d6fc9444ca961916"/>

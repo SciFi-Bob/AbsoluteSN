@@ -355,13 +355,14 @@ AbsoluteAPI.prototype = {
 	
 	fetchAllAbsoluteDevices : function(select) {
 		
-		var batchSize = 200; //Dictates how many devices are collected each cycle.  Not advisable to increase over 400
+		var batchSize = 400; //Dictates how many devices are collected each cycle.  Not advisable to increase over 400 reduce if getting timeouts
 		var objectSelectStatement = select; //List of fields that are to be collected from Absolute.
 		
 		var page = 0;
 		var lastBatchSize = 0;
 		var thisBatch;
 		var devices;
+		
 		
 		if(objectSelectStatement == ""){
 			devices = this._fetchAllAbsoluteDevicesBatch(page,batchSize);
@@ -371,8 +372,8 @@ AbsoluteAPI.prototype = {
 			while(lastBatchSize == batchSize){
 				thisBatch = this._fetchAllAbsoluteDevicesBatch(page,batchSize);
 				lastBatchSize = thisBatch.length;
-				devices.concat(thisBatch);
 				page = page + thisBatch.length;
+				devices = devices.concat(thisBatch);
 			}
 			
 			return devices;
@@ -385,8 +386,8 @@ AbsoluteAPI.prototype = {
 			while(lastBatchSize == batchSize){
 				thisBatch = this._fetchAllAbsoluteDevicesBatchWithSelect(page,batchSize,objectSelectStatement);
 				lastBatchSize = thisBatch.length;
-				devices.concat(thisBatch);
 				page = page + thisBatch.length;
+				devices = devices.concat(thisBatch);
 			}
 			
 			return devices;
@@ -598,13 +599,13 @@ AbsoluteAPI.prototype = {
         <sys_created_by>admin</sys_created_by>
         <sys_created_on>2018-06-13 18:23:12</sys_created_on>
         <sys_id>4eac9fa3db2e1300d6fc9444ca961933</sys_id>
-        <sys_mod_count>49</sys_mod_count>
+        <sys_mod_count>55</sys_mod_count>
         <sys_name>AbsoluteAPI</sys_name>
         <sys_package display_value="Absolute Software Connector" source="x_233073_absolute">5a575fafdbea1300d6fc9444ca96195c</sys_package>
         <sys_policy>read</sys_policy>
         <sys_scope display_value="Absolute Software Connector">5a575fafdbea1300d6fc9444ca96195c</sys_scope>
         <sys_update_name>sys_script_include_4eac9fa3db2e1300d6fc9444ca961933</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-06-11 17:03:37</sys_updated_on>
+        <sys_updated_on>2019-06-17 15:22:11</sys_updated_on>
     </sys_script_include>
 </record_update>

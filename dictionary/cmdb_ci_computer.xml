@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <database>
-    <element audit="true" extends="cmdb_ci_hardware" label="Computer" max_length="40" name="cmdb_ci_computer" sizeclass="6" type="collection">
+    <element audit="true" extends="cmdb_ci_hardware" label="Computer" max_length="40" name="cmdb_ci_computer" sizeclass="5" type="collection">
         <element label="OS Serial Number" max_length="100" name="x_233073_absolute_os_serial_number" type="string"/>
     </element>
 </database>

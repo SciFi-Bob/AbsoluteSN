@@ -28,9 +28,12 @@ var apiToken = gs.getProperty('x_233073_absolute.Absolute_API_Token');
 var api = new AbsoluteAPI(apiToken, apiSecret);
 
 var answer;
+var answer2;
 action.setRedirectURL(current);
-answer = api.fetchAllAbsoluteDevices('cpu,os');
+answer = api.fetchAllAbsoluteDevices("os,cpu,deviceName,domain,lastConnectedUTC"); //Example of fetching specific objects for each device
+//answer2 = api.fetchAllAbsoluteDevices(""); //Example of collecting all.  Strongly advice you select the specific objects even if it's most of them
 
+var size = answer.length;
 var a = 1+1;]]></script>
         <show_insert>true</show_insert>
         <show_multiple_update>false</show_multiple_update>
@@ -42,7 +45,7 @@ var a = 1+1;]]></script>
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>c11cc02c4f42330024a5aa95d310c72b</sys_id>
-        <sys_mod_count>7</sys_mod_count>
+        <sys_mod_count>12</sys_mod_count>
         <sys_name>Test</sys_name>
         <sys_overrides/>
         <sys_package display_value="Absolute Software Connector" source="x_233073_absolute">5a575fafdbea1300d6fc9444ca96195c</sys_package>
@@ -50,7 +53,7 @@ var a = 1+1;]]></script>
         <sys_scope display_value="Absolute Software Connector">5a575fafdbea1300d6fc9444ca96195c</sys_scope>
         <sys_update_name>sys_ui_action_c11cc02c4f42330024a5aa95d310c72b</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2019-06-11 16:59:56</sys_updated_on>
+        <sys_updated_on>2019-06-17 14:58:25</sys_updated_on>
         <table>x_233073_absolute_computer</table>
         <ui11_compatible>true</ui11_compatible>
         <ui16_compatible>false</ui16_compatible>
