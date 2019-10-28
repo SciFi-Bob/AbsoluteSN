@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<database>
+<?xml version="1.0" encoding="UTF-8"?><database>
     <element audit="true" extends="cmdb_ci_server" label="ISAM Server" max_length="40" name="cmdb_ci_isam_server" type="collection">
         <element attributes="edge_encryption_enabled=true" label="OS Serial Number" max_length="100" name="x_233073_absolute_os_serial_number" type="string"/>
     </element>

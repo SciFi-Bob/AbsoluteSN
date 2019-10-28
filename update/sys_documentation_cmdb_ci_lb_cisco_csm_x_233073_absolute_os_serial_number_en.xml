@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<record_update>
+<?xml version="1.0" encoding="UTF-8"?><record_update>
     <sys_documentation element="x_233073_absolute_os_serial_number" label="OS Serial Number" language="en" table="cmdb_ci_lb_cisco_csm">
         <sys_documentation action="INSERT_OR_UPDATE">
             <element>x_233073_absolute_os_serial_number</element>

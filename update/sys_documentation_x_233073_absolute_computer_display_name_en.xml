@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<record_update>
+<?xml version="1.0" encoding="UTF-8"?><record_update>
     <sys_documentation element="display_name" label="Display Name" language="en" table="x_233073_absolute_computer">
         <sys_documentation action="INSERT_OR_UPDATE">
             <element>display_name</element>

@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<database>
+<?xml version="1.0" encoding="UTF-8"?><database>
     <element label="Computer Freeze Log" max_length="40" name="x_233073_absolute_computer_freeze_log" type="collection">
         <element label="Absolute Uid" max_length="100" name="absolute_uid" type="string"/>
         <element label="Action" max_length="40" name="action" type="string"/>

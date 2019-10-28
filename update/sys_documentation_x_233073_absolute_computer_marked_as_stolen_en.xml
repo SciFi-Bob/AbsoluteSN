@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<record_update>
+<?xml version="1.0" encoding="UTF-8"?><record_update>
     <sys_documentation element="marked_as_stolen" label="Marked As Stolen" language="en" table="x_233073_absolute_computer">
         <sys_documentation action="INSERT_OR_UPDATE">
             <element>marked_as_stolen</element>

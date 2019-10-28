@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<record_update table="sys_rest_message_headers">
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_rest_message_headers">
     <sys_rest_message_headers action="INSERT_OR_UPDATE">
         <name>content-type</name>
         <rest_message display_value="AbsoluteAPI">8568dfefdbea1300d6fc9444ca961990</rest_message>

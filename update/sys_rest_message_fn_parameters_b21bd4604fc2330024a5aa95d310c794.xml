@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<record_update table="sys_rest_message_fn_parameters">
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_rest_message_fn_parameters">
     <sys_rest_message_fn_parameters action="INSERT_OR_UPDATE">
         <name>skip</name>
         <rest_message_function display_value="getAlldevicesWithLimitandSelect">16aa90604fc2330024a5aa95d310c736</rest_message_function>
